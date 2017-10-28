@@ -31,3 +31,6 @@ def getDataSet(stockTicker):
         except ValueError:
             continue;
     return parsedData
+
+if __name__ == '__main__':
+    app.run()

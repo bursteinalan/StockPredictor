@@ -1,7 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from BackEnd import parser
 import os
-from flask import request
 
 
 template_dir = os.path.abspath('static')
@@ -17,7 +16,7 @@ def main():
 
 @app.route('/getDataSet')
 def getDataSetWrapper(query, methods=["GET","POST"]):
-	return parser.getDataSet(query)
+	return parser.getDataSet(request.form['stockTicker'])
 
 if __name__ == "__main__":
     app.run()

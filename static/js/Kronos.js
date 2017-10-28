@@ -34,12 +34,19 @@ KRONOS.search=function(){
 		stockTicker : ids 			
  	}).done(function(response) {
 		alert("Server returned: " + response);
+        seriesOptions = {
+            name: ids,
+            data: response
+        };
+        KRONOS.createChart()
+        KRONOS.showSettings();
+        window.scrollTo(0,document.body.scrollHeight);
 		
 	}).fail(function() {
 		console.log("failed to return results");
 	});
 
-	KRONOS.makeChart()
+	// KRONOS.makeChart()
 }
 
 

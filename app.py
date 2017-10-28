@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from BackEnd import parser
+from BackEnd import parser, getStat
 import json
 import os
 
@@ -19,6 +19,11 @@ def main():
 def getDataSetWrapper():
     ticker = request.form['stockTicker']
     return json.dumps(parser.getDataSet(ticker))
+
+@app.route('/getStat', methods=["POST"])
+def getStatWrapper():
+    ticker = request.form['stockTicker']
+    return json.dumps(parser.getStat(ticker))
 
 if __name__ == "__main__":
     app.run()

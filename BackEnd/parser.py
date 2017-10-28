@@ -2,6 +2,7 @@
 
 from yahoo_historical import Fetcher
 from datetime import datetime
+from yahoo_finance import Share
 
 def parseTime(timeString):
     '''
@@ -13,10 +14,10 @@ def parseTime(timeString):
 
 def getDataSet(stockTicker):
     startYear = 1980
+    currentDate = [int(strNum) for strNum in datetime.now().strftime("%Y-%m-%d").split('-')]
     while(startYear < 2017):
         # Change the fixed value here
         try:
-            currentDate = [int(strNum) for strNum in datetime.now().strftime("%Y-%m-%d").split('-')]
             data = Fetcher(stockTicker, [startYear,1,1], currentDate)
             break;
         except ValueError:
@@ -25,14 +26,19 @@ def getDataSet(stockTicker):
     parsedData = list()
     # parsedDataX = list()
     # parsedDataY = list()
-    for _, row in data.getHistorical().iterrows():
+    dataFrame = data.getHistorical()
+    for _, row in dataFrame.iterrows():
         try:
             parsedData.append([parseTime(row['Date']), round(float(row['Close']) + 0.005 , 2)])
-            # parsedDataX.append(parseTime(row['Date']))
-            # parsedDataY.append(float(row['Close']))
         except ValueError:
             continue;
-    # return [parsedDataX, parsedDataY]
     return parsedData
 
+def getStat(stockTicker):
+    ticker = Share(stockTicker)
+    stats = {"cap": ticker.get_market_cap(), "bitda" : ticker.get_ebitda(), "eps": ticker.get_earnings_share()}
+    return stats
+
+
 # print(getDataSet("AAPL"))
+# print(getStat("AAPL"))

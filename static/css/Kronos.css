@@ -39,8 +39,8 @@ p{
 .panel-default>.panel-heading{
     background-color: #92acda;
 }
-.nav{
+.navbar{
     background-color:rgba(0, 0, 0, .3);
-    height: 100px;
+    height: 150px;
     width: auto;
 }

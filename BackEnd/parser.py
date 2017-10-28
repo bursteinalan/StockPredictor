@@ -27,7 +27,7 @@ def getDataSet(stockTicker):
     # parsedDataY = list()
     for _, row in data.getHistorical().iterrows():
         try:
-            parsedData.append([parseTime(row['Date']), float(row['Close'])])
+            parsedData.append([parseTime(row['Date']), round(float(row['Close']) + 0.005 , 2)])
             # parsedDataX.append(parseTime(row['Date']))
             # parsedDataY.append(float(row['Close']))
         except ValueError:

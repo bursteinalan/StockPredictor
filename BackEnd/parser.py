@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 from flask import Flask
 from yahoo_historical import Fetcher
 from datetime import datetime
@@ -7,7 +9,7 @@ def parseTime(timeString):
     Converts date to total milliseconds
     Input: Y-m-d
     '''
-    InputDate = int(datetime.strptime(timeString, '%Y-%m-%d').strftime('%s'))
+    InputDate = datetime.strptime(timeString, '%Y-%m-%d').timestamp()
     return InputDate*1000
 
 app = Flask(__name__)

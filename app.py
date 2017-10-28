@@ -16,6 +16,7 @@ def main():
 
 @app.route('/getDataSet')
 def getDataSetWrapper(query, methods=["GET","POST"]):
+	print('recieved')
 	return parser.getDataSet(request.form['stockTicker'])
 
 if __name__ == "__main__":

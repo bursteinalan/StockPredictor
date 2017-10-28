@@ -28,6 +28,9 @@ KRONOS.test = function(val) {
 
 KRONOS.search=function(){
 	var ids=$('#searchIds').val()
+    if(ids==''){
+        ids='AAPL'
+    }
 	console.log(ids)
 
 	$.post("/getDataSet", {

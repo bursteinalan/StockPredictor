@@ -10,7 +10,7 @@ dates = []
 # prices for corresponding to date
 prices = []
 
-startdate = dt.datetime(2017, 9, 28)
+startdate = dt.datetime(2016,1,28)
 
 def pull_data(file):
 	with open(file, 'r') as data_file:
@@ -23,23 +23,23 @@ def pull_data(file):
 		return dates, prices
 
 def predict(dates, prices, time=150):
+	dates_org = np.reshape(dates, (len(dates), 1))
+
+	svr_lin = SVR(kernel='linear', C=1e3, verbose = True)
+	# svr_poly = SVR(kernel='poly', C=1e3, degree=2, verbose = True)
+	# svr_rbf = SVR(kernel='rbf', C=1e3, gamma=0.1, verbose = True)
+
+	svr_lin.fit(dates_org, prices)
+	# svr_poly.fit(dates_org, prices)
+	# svr_rbf.fit(dates_org, prices)
+
+	dates = np.arange(dates_org[len(dates_org) - 1] + time)
 	dates = np.reshape(dates, (len(dates), 1))
 
-	svr_lin = SVR(kernel='linear', C=1e3)
-	svr_poly = SVR(kernel='poly', C=1e3, degree=2)
-	svr_rbf = SVR(kernel='rbf', C=1e3, gamma=0.1)
-
-	svr_lin.fit(dates, prices)
-	svr_poly.fit(dates, prices)
-	svr_rbf.fit(dates, prices)
-
-	dates = np.arange(dates[len(dates) - 1] + time)
-	dates = np.reshape(dates, (len(dates), 1))
-
-	plt.scatter(dates, prices, color='black', label='Data')
-	plt.plot(dates, svr_rbf.predict(dates), color='red', label='RBF')
+	plt.scatter(dates_org, prices, color='black', label='Days from start')
+	# plt.plot(dates, svr_rbf.predict(dates), color='red', label='RBF')
 	plt.plot(dates, svr_lin.predict(dates), color='green', label='Linear')
-	plt.plot(dates, svr_poly.predict(dates), color='blue', label='Polynomial')
+	# plt.plot(dates, svr_poly.predict(dates), color='blue', label='Polynomial')
 	plt.xlabel('Date')
 	plt.ylabel('Price')
 	plt.title('SVR')
@@ -49,7 +49,7 @@ def predict(dates, prices, time=150):
 
 
 
-dates, prices = pull_data('sample.csv')
+dates, prices = pull_data('GOOG.csv')
 predict(dates, prices)
 
 

@@ -24,7 +24,6 @@ def pull_data(file):
 
 def predict(dates, prices, time=150):
 	dates = np.reshape(dates, (len(dates), 1))
-	print(dates, prices)
 
 	svr_lin = SVR(kernel='linear', C=1e3)
 	svr_poly = SVR(kernel='poly', C=1e3, degree=2)
@@ -34,29 +33,8 @@ def predict(dates, prices, time=150):
 	svr_poly.fit(dates, prices)
 	svr_rbf.fit(dates, prices)
 
-	"""
-	lin = []
-	poly = []
-	rbf = []
-
-	last = dates[len(dates) - 1][0]
-
-	for x in range(1, time + 1):
-		newt = last + x
-		dates = np.append(dates, [newt])
-		lin.append(svr_lin.predict(x)[0])
-		poly.append(svr_poly.predict(x)[0])
-		rbf.append(svr_rbf.predict(x)[0])
-
+	dates = np.arange(dates[len(dates) - 1] + time)
 	dates = np.reshape(dates, (len(dates), 1))
-
-	lin = np.append(prices, lin)
-	lin = np.reshape(lin, (len(lin), 1))
-	poly = np.append(prices, poly)
-	poly = np.reshape(poly, (len(poly), 1))
-	rbf = np.append(prices, rbf)
-	rbf = np.reshape(rbf, (len(rbf), 1))
-	"""
 
 	plt.scatter(dates, prices, color='black', label='Data')
 	plt.plot(dates, svr_rbf.predict(dates), color='red', label='RBF')
@@ -71,7 +49,7 @@ def predict(dates, prices, time=150):
 
 
 
-dates, prices = pull_data('/Users/burstein/Documents/funStuff/BostonHacks17/BackEnd/predictor/sample.csv')
+dates, prices = pull_data('sample.csv')
 predict(dates, prices)
 
 

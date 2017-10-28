@@ -37,6 +37,7 @@ KRONOS.search=function(){
 		stockTicker : ids 		
  	}).done(function(response) {
 		console.log("Server returned: " + response);
+
         seriesOptions = {
             name: ids,
             data: response

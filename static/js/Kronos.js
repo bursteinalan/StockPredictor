@@ -108,7 +108,7 @@ KRONOS.makeChart=function(){
         seriesCounter += 1;
 
         if (seriesCounter === names.length) {
-            console.log(JSON.stringify(seriesOptions))
+            // console.log(JSON.stringify(seriesOptions))
             KRONOS.createChart();
             KRONOS.showSettings();
             window.scrollTo(0,document.body.scrollHeight);

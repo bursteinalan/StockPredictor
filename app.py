@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from BackEnd import parser
+import json
 import os
 
 
@@ -14,10 +15,10 @@ app = Flask(__name__, template_folder=template_dir)
 def main():
     return render_template('index.html')
 
-@app.route('/getDataSet')
-def getDataSetWrapper(query, methods=["GET","POST"]):
-	print('recieved')
-	return parser.getDataSet(request.form['stockTicker'])
+@app.route('/getDataSet', methods=["POST"])
+def getDataSetWrapper():
+    ticker = request.form['stockTicker']
+    return json.dumps(parser.getDataSet(ticker))
 
 if __name__ == "__main__":
     app.run()

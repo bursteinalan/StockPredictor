@@ -2,12 +2,17 @@ var KRONOS = {
 	logger : null
 };
 
+
+var seriesOptions = [],
+    seriesCounter = 0,
+    names = ['MSFT', 'AAPL', 'GOOG'];
+
 KRONOS.documentReady = function() {
-	console.log("TEMPLATE is document ready!");
+	console.log("Kronos is document ready!");
 };
 
 
-// Run search on Spotify playlists
+//Post example
 KRONOS.test = function(val) {
 	//Example of how to send input to server
 	$.post("/example", {
@@ -20,9 +25,23 @@ KRONOS.test = function(val) {
 
 };
 
-var seriesOptions = [],
-    seriesCounter = 0,
-    names = ['MSFT', 'AAPL', 'GOOG'];
+
+KRONOS.search=function(){
+	var ids=$('#searchIds').val()
+	console.log(ids)
+
+	$.post("/getDataSet", {
+		stockTicker : ids 			
+ 	}).done(function(response) {
+		alert("Server returned: " + response);
+		
+	}).fail(function() {
+		console.log("failed to return results");
+	});
+
+	KRONOS.makeChart()
+}
+
 
 /**
  * Create the chart when all data is loaded
@@ -81,7 +100,21 @@ KRONOS.makeChart=function(){
 
         if (seriesCounter === names.length) {
             KRONOS.createChart();
+            KRONOS.showSettings();
+            window.scrollTo(0,document.body.scrollHeight);
         }
-    });
-});
+    	});
+	});
 }
+KRONOS.showAgg=function(){
+
+}
+KRONOS.showAll=function(){
+
+}
+KRONOS.showSettings=function(){
+	// $("#settings").css("display", "block");
+	$("#settings").fadeIn("slow");
+}
+
+

@@ -32,7 +32,7 @@ def getDataSet(stockTicker):
             continue;
     return parsedData
 
-# print(getDataSet("AAPL"))
+print(getDataSet("AAPL"))
 
 if __name__ == '__main__':
     app.run()

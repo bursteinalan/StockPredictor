@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- favicon -->
+<link rel="icon" href="/static/resources/magician.jpeg">
+
+<title>KRONOS</title>
+
+
+
+<!-- Bootstrap core JavaScript
+     ================================================== -->
+<!-- Can be placed at the end of the document so the pages load faster -->
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+
+<!-- Bootstrap core -->
+<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+<script src="/static/js/bootstrap.min.js"></script>
+
+<!-- Project CSS and JS -->
+<link href="/static/css/kronos.css" rel="stylesheet">
+
+<script type="text/javascript" src="/static/js/kronos.js"></script>
+
+
+
+</head>
+
+
+<body onload="KRONOS.documentReady()">
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div style="margin-left: 5%">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a href="#" class="navbar-left"><img src="/static/resources/magician.jpeg"
+					height="50px" width="100px"></a> <a class="navbar-brand banner"
+					href="#"> </a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav ">
+					<li class="active"><a href="#">Home</a></li>
+				</ul>
+
+
+
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
+
+	<div class="" style="margin-top: 30px">
+
+		<div class="name">
+			<div class="col-md-12">
+				<h1>Kronos</h1>
+				<p class="lead">Financial Predictor</p>
+			</div>
+		</div>
+
+		<div class="col-md-12 col-xs-12" id="search">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<h3 style="text-align: center; margin-top: 0px;">Prediction</h3>
+
+					<div style="position: relative">
+						<div class="col-sm-4 col-xs-6 col-xs-offset-3 col-sm-offset-4">
+						<input class="form-control " type="text" name="search" id="searchIds" placeholder="AAPL">
+					</div>
+						<button type="button"
+							class="ExampleButton btn btn-success col-sm-2 col-xs-6 col-xs-offset-3 col-sm-offset-5" style="margin-top: 5px" 
+							onclick="KRONOS.search()">Run</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-12 col-xs-12" id="container" style="height: 400px; min-width: 310px; margin-bottom: 10px"></div>
+
+
+		<div class="col-md-12 col-xs-12" id="settings" style="display: none;">
+			<div class="panel-group">
+			    <div class="panel panel-default">
+			      <div class="panel-heading">Model Settings</div>
+			      <div class="panel-body">
+			      	<div style="position: relative">
+						<button type="button"
+							class="ExampleButton btn btn-info col-sm-2 col-xs-4 col-xs-offset-0 col-sm-offset-0"
+							onclick="KRONOS.makeChart()">Model1</button>
+						<button type="button"
+							class="ExampleButton btn btn-info col-sm-2 col-xs-4 col-xs-offset-1 col-sm-offset-1"
+							onclick="KRONOS.makeChart()">Model2</button>
+						<button type="button"
+							class="ExampleButton btn btn-info col-sm-2 col-xs-4 col-xs-offset-1 col-sm-offset-1"
+							onclick="KRONOS.makeChart()">Model3</button>
+						<button type="button"
+							class="ExampleButton btn btn-info col-sm-2 col-xs-4 col-xs-offset-1 col-sm-offset-1"
+							onclick="KRONOS.makeChart()">Model4</button>
+					</div>
+
+			      </div>
+			    </div>
+			    <div class="panel panel-default">
+			      <div class="panel-heading">Aggregation Settings</div>
+			      <div class="panel-body">
+			      	<div style="position: relative">
+			      		<button type="button"
+							class="ExampleButton btn btn-info col-sm-4 col-xs-4 col-xs-offset-1 col-sm-offset-1"
+							onclick="KRONOS.showAgg()">Aggregate</button>
+						<button type="button"
+							class="ExampleButton btn btn-info col-sm-4 col-xs-4 col-xs-offset-1 col-sm-offset-1"
+							onclick="KRONOS.showAll()">Show Each</button>
+			      </div>
+			    </div>
+			    
+			  </div>
+			
+		</div>
+
+	</div>
+
+	
+
+</body>
+</html>

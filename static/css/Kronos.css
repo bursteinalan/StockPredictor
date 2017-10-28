@@ -1,5 +1,7 @@
 body {
-	padding-top: 50px;
+	padding-top: 25px;
+    background-color: #3f516d;
+    color: #b95b5b;
 }
 .name {
 	padding: 40px 15px;
@@ -13,4 +15,13 @@ body {
     padding:5px 0;
     background:#f0f0f0;
     border-top:1px solid #666;
+}
+.panel{
+    border-color: #637da9;
+}
+.panel-body{
+    background-color: #637da9;
+}
+.panel-default>.panel-heading{
+    background-color: #92acda;
 }

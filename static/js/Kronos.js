@@ -36,11 +36,14 @@ KRONOS.search=function(){
 	$.post("/getDataSet", {
 		stockTicker : ids 		
  	}).done(function(response) {
-		// alert("Server returned: " + response);
+		console.dir("Server returned: " + response);
+        response=JSON.parse(response)
+        console.dir(response)
         seriesOptions = {
             name: ids,
             data: response
         };
+        console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart()
         KRONOS.showSettings();
         window.scrollTo(0,document.body.scrollHeight);
@@ -66,11 +69,7 @@ KRONOS.createChart=function() {
         },
 
         yAxis: {
-            labels: {
-                formatter: function () {
-                    return (this.value > 0 ? ' + ' : '') + this.value + '%';
-                }
-            },
+            
             plotLines: [{
                 value: 0,
                 width: 2,
@@ -80,18 +79,18 @@ KRONOS.createChart=function() {
 
         plotOptions: {
             series: {
-                compare: 'percent',
-                showInNavigator: true
+                showInNavigator: true,
+                turboThreshold: 0
             }
         },
 
         tooltip: {
-            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}<br/>',
             valueDecimals: 2,
             split: true
         },
 
-        series: seriesOptions
+        series: [seriesOptions]
     });
 }
 KRONOS.makeChart=function(){
@@ -109,6 +108,7 @@ KRONOS.makeChart=function(){
         seriesCounter += 1;
 
         if (seriesCounter === names.length) {
+            console.log(JSON.stringify(seriesOptions))
             KRONOS.createChart();
             KRONOS.showSettings();
             window.scrollTo(0,document.body.scrollHeight);

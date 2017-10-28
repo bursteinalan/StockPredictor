@@ -35,4 +35,4 @@ def getDataSet(stockTicker):
     # return [parsedDataX, parsedDataY]
     return parsedData
 
-print(getDataSet("AAPL"))
+# print(getDataSet("AAPL"))

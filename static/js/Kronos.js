@@ -36,7 +36,7 @@ KRONOS.search=function(){
 	$.post("/getDataSet", {
 		stockTicker : ids 		
  	}).done(function(response) {
-		alert("Server returned: " + response);
+		// alert("Server returned: " + response);
         seriesOptions = {
             name: ids,
             data: response

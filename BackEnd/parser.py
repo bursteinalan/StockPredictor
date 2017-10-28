@@ -9,7 +9,7 @@ def parseTime(timeString):
     Input: Y-m-d
     '''
     InputDate = datetime.strptime(timeString, '%Y-%m-%d').timestamp()
-    return InputDate*1000
+    return int(InputDate*1000)
 
 def getDataSet(stockTicker):
     startYear = 1980

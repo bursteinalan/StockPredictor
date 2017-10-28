@@ -71,7 +71,7 @@ def predict(dates, prices, time=150):
 
 
 
-dates, prices = pull_data('sample1.csv')
+dates, prices = pull_data('/Users/burstein/Documents/funStuff/BostonHacks17/BackEnd/predictor/sample.csv')
 predict(dates, prices)
 
 

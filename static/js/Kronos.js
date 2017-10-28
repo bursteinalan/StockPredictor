@@ -31,19 +31,19 @@ KRONOS.search=function(){
     if(ids==''){
         ids='AAPL'
     }
-	console.log(ids)
+	// console.log(ids)
 
 	$.post("/getDataSet", {
 		stockTicker : ids 		
  	}).done(function(response) {
-		console.dir("Server returned: " + response);
+		// console.dir("Server returned: " + response);
         response=JSON.parse(response)
-        console.dir(response)
+        // console.dir(response)
         seriesOptions = {
             name: ids,
             data: response
         };
-        console.log("object is: " + JSON.stringify(seriesOptions));
+        // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart()
         KRONOS.showSettings();
         window.scrollTo(0,document.body.scrollHeight);
@@ -108,7 +108,7 @@ KRONOS.makeChart=function(){
         seriesCounter += 1;
 
         if (seriesCounter === names.length) {
-            console.log(JSON.stringify(seriesOptions))
+            // console.log(JSON.stringify(seriesOptions))
             KRONOS.createChart();
             KRONOS.showSettings();
             window.scrollTo(0,document.body.scrollHeight);

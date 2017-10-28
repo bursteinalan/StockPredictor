@@ -22,14 +22,17 @@ def getDataSet(stockTicker):
         except ValueError:
             startYear += 5
 
-    parsedDataX = list()
-    parsedDataY = list()
+    parsedData = list()
+    # parsedDataX = list()
+    # parsedDataY = list()
     for _, row in data.getHistorical().iterrows():
         try:
-            parsedDataX.append(parseTime(row['Date']))
-            parsedDataY.append(float(row['Close']))
+            parsedData.append([parseTime(row['Date']), float(row['Close'])])
+            # parsedDataX.append(parseTime(row['Date']))
+            # parsedDataY.append(float(row['Close']))
         except ValueError:
             continue;
-    return [parsedDataX, parsedDataY]
+    # return [parsedDataX, parsedDataY]
+    return parsedData
 
-# print(getDataSet("AAPL"))
+print(getDataSet("AAPL"))

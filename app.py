@@ -13,7 +13,7 @@ app = Flask(__name__, template_folder=template_dir)
 def main():
     return render_template('index.html')
 
-@app.route('/getDataSet/<query>')
+@app.route('/getDataSet')
 def getDataSetWrapper(query):
 	return parser.getDataSet(query)
 

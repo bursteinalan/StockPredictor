@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 
-from flask import Flask
 from yahoo_historical import Fetcher
 from datetime import datetime
 
@@ -12,9 +11,6 @@ def parseTime(timeString):
     InputDate = datetime.strptime(timeString, '%Y-%m-%d').timestamp()
     return InputDate*1000
 
-app = Flask(__name__)
-
-@app.route('/getDataSet')
 def getDataSet(stockTicker):
     startYear = 1980
     while(startYear < 2017):

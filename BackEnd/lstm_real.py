@@ -32,7 +32,6 @@ def main():
     
     # split into train and test sets
     train_size = int(len(dataset) * 0.67)
-    test_size = len(dataset) - train_size
     train, test = dataset[0:train_size,:], dataset[train_size:len(dataset),:]
     
     # reshape into X=t and Y=t+1
@@ -49,7 +48,7 @@ def main():
     model.add(LSTM(10, input_shape=(1, look_back)))
     model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
-    model.fit(trainX, trainY, epochs = 10, batch_size=1, verbose=2)
+    model.fit(trainX, trainY, epochs = 80, batch_size=1, verbose=2)
     
     # make predictions
     trainPredict = model.predict(trainX)
@@ -84,6 +83,5 @@ def main():
     plt.show()
     
     return testPredict[-1][0]
-
 
 main()

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from BackEnd import parser
+from BackEnd import parser, engine
 import json
 import os
 
@@ -49,6 +49,20 @@ def getStatWrapper():
         json.dump(data, outfile)
         return json.dumps(data)
     return json.dumps()
+
+@app.route('/getMLStats', methods=['POST'])
+def getNextDay():
+    ticker = request.form['stockTicker']
+    fname = cachedDir+"/DataSet-" + ticker + ".txt"
+    if os.path.isfile(fname):
+        with open(fname, 'r') as json_file:  
+            return json_file.read()
+    with open(fname, 'w') as outfile: 
+        data = parser.getDataSet(ticker)
+        start, dates, prices = engine.parse_data(data)
+        svm = engine.train(dates, prices)
+        return engine.predict(svm, (datetime.datetime.now() - start).days)
+
 
 if __name__ == "__main__":
     app.run()

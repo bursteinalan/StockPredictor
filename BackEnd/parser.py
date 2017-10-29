@@ -38,5 +38,5 @@ def getStat(stockTicker):
     return stats
 
 
-# print(getDataSet("^IXIC"))
+# print(getDataSet("^GSPC"))
 # print(getStat("AAPL"))

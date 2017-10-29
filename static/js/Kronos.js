@@ -145,8 +145,6 @@ KRONOS.test = function(val) {
 
 KRONOS.search=function(){
     KRONOS.showLoader();
-    (new CanvasJS.Chart("loader")).render();
-    KRONOS.runLoader()
     //clear Tables
     $("#machineLearning").find("thead").remove();
     $("#machineLearning"+ " tr:has(td)").find("thead").remove();
@@ -249,7 +247,7 @@ KRONOS.hideIndices=function(){
 KRONOS.getML=function(){
     data=[]
     data['Current Stock Price']= currentValue
-
+    KRONOS.showLoader()
     $.when(
         $.post("/getMLStats",{
             stockTicker : ids       
@@ -280,6 +278,7 @@ KRONOS.getML=function(){
     }
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.showStats();
+        KRONOS.hideLoader();
     });
 }
 
@@ -421,10 +420,10 @@ KRONOS.showStats=function(){
 }
 
 KRONOS.showLoader = function() {
-    $("#loaderContainer").css("display", "block");
+    $("#loading").css("display", "block");
 };
 KRONOS.hideLoader = function() {
-    $("#loaderContainer").css("display", "none");
+    $("#loading").css("display", "none");
 };
 
 //Handle HTML for voice recording

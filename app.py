@@ -63,6 +63,5 @@ def getNextDay():
         svm = engine.train(dates, prices)
         return engine.predict(svm, (datetime.datetime.now() - start).days)
 
-
 if __name__ == "__main__":
     app.run()

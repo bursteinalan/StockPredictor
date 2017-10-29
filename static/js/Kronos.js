@@ -2,6 +2,7 @@ var KRONOS = {
 	logger : null
 };
 
+var ids
 var seriesData=[]
 var originalSearch={}
 var seriesOptions = [],
@@ -29,7 +30,7 @@ KRONOS.test = function(val) {
 
 
 KRONOS.search=function(){
-	var ids=$('#searchIds').val()
+	ids=$('#searchIds').val()
     if(ids==''){
         ids='AAPL'
     }
@@ -103,6 +104,23 @@ KRONOS.overlayIndices=function(){
         console.log("failed to return results");
     });
 }
+KRONOS.hideIndices=function(){
+    
+        seriesData=[]
+        seriesData.push(originalSearch)
+        
+        KRONOS.createChart();
+        KRONOS.showSettings();
+        
+        window.scrollTo(0,document.body.scrollHeight);
+}
+KRONOS.getML=function(){
+    $.post("/getMLStats",{
+        stockTicker : ids       
+    }).done(function(response) {
+        console.log(response)
+    });
+}
 
 /**
  * Create the chart when all data is loaded
@@ -168,7 +186,13 @@ KRONOS.createChart=function() {
         // shadow: true
     },
 
-        series: seriesData
+        series: seriesData,
+
+         credits: {
+        text: '\xAE Kronos',
+        href: 'http://www.reddit.com'
+    },
+  
     }); 
 }
 KRONOS.makeChart=function(){
@@ -239,5 +263,44 @@ KRONOS.showStats=function(){
     // $("#settings").css("display", "block");
     $("#stats").fadeIn("slow");
 }
+
+//Handle HTML for voice recording
+KRONOS.startRecording = function() {
+    var mic=$("#micIcon");
+    mic.attr("src","/static/resources/mic-red.png");
+    KRONOS.handleVoice();
+}
+
+//Stop recording visually
+KRONOS.stopRecording = function() {
+    var mic=$("#micIcon");
+    mic.attr("src","/static/resources/mic-icon.png");
+}
+
+//webkit speech to handle audio
+KRONOS.handleVoice = function() {
+    console.log("voice")
+    var recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+    recognition.start();
+    recognition.onresult = function(event) {
+        console.log("done listening");
+        console.log(event);
+        recognition.stop();
+        text=event["results"][0][0]["transcript"];
+        console.log(text);
+        $("#searchIds").val(text);
+        KRONOS.stopRecording();
+        
+    }
+    recognition.onerror = function(event) {
+          console.log('Speech recognition error detected');
+          recognition.abort();
+          KRONOS.stopRecording();
+        }
+    
+ }
 
 

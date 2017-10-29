@@ -2,9 +2,10 @@ var KRONOS = {
 	logger : null
 };
 
-
+var seriesData=[]
 var seriesOptions = [],
     seriesCounter = 0,
+
     names = ['MSFT', 'AAPL', 'GOOG'];
 
 KRONOS.documentReady = function() {
@@ -39,10 +40,12 @@ KRONOS.search=function(){
 		// console.dir("Server returned: " + response);
         response=JSON.parse(response)
         // console.dir(response)
+        seriesData=[]
         seriesOptions = {
             name: ids,
             data: response
         };
+        seriesData.push(seriesOptions)
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart();
         KRONOS.showSettings();
@@ -56,7 +59,33 @@ KRONOS.search=function(){
 	// KRONOS.makeChart()
 }
 KRONOS.overlayIndices=function(){
+    $.post("/marketData").done(function(response) {
+        // console.dir("Server returned: " + response);
+        response=JSON.parse(response)
+        // console.dir(response)
+        SP=response[0]
+        NASD=response[1]
+        console.log(response)
+        seriesOptions = {
+            name: 'S&P',
+            data: SP
+        }
+        seriesData.push(seriesOptions)
 
+        seriesOptions = {
+            name: 'NASDAQ',
+            data: NASD
+        }
+        seriesData.push(seriesOptions)
+        // console.log("object is: " + JSON.stringify(seriesOptions));
+        KRONOS.createChart();
+        KRONOS.showSettings();
+        
+        window.scrollTo(0,document.body.scrollHeight);
+        
+    }).fail(function() {
+        console.log("failed to return results");
+    });
 }
 
 /**
@@ -72,7 +101,11 @@ KRONOS.createChart=function() {
         },
 
         yAxis: {
-            
+            labels: {
+                formatter: function () {
+                    return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                }
+            },
             plotLines: [{
                 value: 0,
                 width: 2,
@@ -80,20 +113,35 @@ KRONOS.createChart=function() {
             }]
         },
 
+
         plotOptions: {
             series: {
                 showInNavigator: true,
-                turboThreshold: 0
+                turboThreshold: 0,
+                compare: 'percent'
             }
         },
 
         tooltip: {
-            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}<br/>',
+            // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}<br/>',
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
             valueDecimals: 2,
             split: true
         },
 
-        series: [seriesOptions]
+        legend: {
+        enabled: true
+        // align: 'right',
+        // backgroundColor: '#FCFFC5',
+        // borderColor: 'black',
+        // borderWidth: 2,
+        // layout: 'vertical',
+        // verticalAlign: 'top',
+        // y: 100,
+        // shadow: true
+    },
+
+        series: seriesData
     }); 
 }
 KRONOS.makeChart=function(){
@@ -126,6 +174,7 @@ KRONOS.showAll=function(){
 
 }
 KRONOS.getStats=function(ids){
+    console.log('Getting Stats')
     $.post("/getStat", {
         stockTicker : ids       
     }).done(function(response) {

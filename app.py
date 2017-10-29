@@ -16,6 +16,10 @@ def getDataSetWrapper():
     ticker = request.form['stockTicker']
     return json.dumps(parser.getDataSet(ticker))
 
+@app.route("/marketData", methods=["POST"])
+def getMarketData():
+    return json.dumps([parser.getDataSet("^INX"), parser.getDataSet("^IXIC") ])
+    
 @app.route('/getStat', methods=["POST"])
 def getStatWrapper():
     ticker = request.form['stockTicker']

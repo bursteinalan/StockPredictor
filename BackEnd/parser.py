@@ -15,7 +15,7 @@ def parseTime(timeString):
 def getDataSet(stockTicker):
     startYear = 1980
     currentDate = [int(strNum) for strNum in datetime.now().strftime("%Y-%m-%d").split('-')]
-    while(startYear < 2017):
+    while(startYear < int(datetime.now().year)):
         # Change the fixed value here
         try:
             data = Fetcher(stockTicker, [startYear,1,1], currentDate)
@@ -38,5 +38,5 @@ def getStat(stockTicker):
     return stats
 
 
-# print(getDataSet("AAPL"))
+# print(getDataSet("^IXIC"))
 # print(getStat("AAPL"))

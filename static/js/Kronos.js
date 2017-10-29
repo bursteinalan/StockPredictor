@@ -142,8 +142,13 @@ KRONOS.test = function(val) {
 
 };
 
-
+var active = false;
+var active2 = false;
+var active3 = false;
 KRONOS.search=function(){
+    active =false;
+    active2=false;
+    active3=false;
     KRONOS.showLoader();
     //clear Tables
     $("#machineLearning").find("thead").remove();
@@ -152,6 +157,8 @@ KRONOS.search=function(){
     $("#customers").find("thead").remove();
     $("#customers" + " tr:has(td)").remove();
 
+    $('#stats').hide();
+    $('#settings').hide();
 	ids=$('#searchIds').val()
     if(ids==''){
         ids='AAPL'
@@ -174,8 +181,6 @@ KRONOS.search=function(){
         seriesData.push(seriesOptions)
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart();
-        KRONOS.showSettings();
-        KRONOS.showStats();
         KRONOS.hideLoader();
 
         $('#search').hide().addClass('search-clicked').fadeIn();
@@ -193,6 +198,13 @@ KRONOS.search=function(){
 	// KRONOS.makeChart()
 }
 KRONOS.overlayIndices=function(){
+    if (active) {
+        active = false;
+        KRONOS.hideIndices();
+        return;
+    }
+
+    active = true;
     KRONOS.showLoader();
     $.post("/marketData").done(function(response) {
         // console.dir("Server returned: " + response);
@@ -230,38 +242,47 @@ KRONOS.overlayIndices=function(){
         KRONOS.createChart();
         KRONOS.hideLoader();
         
-        window.scrollTo(0,document.body.scrollHeight);
+        $("html, body").animate({ scrollTop: 0 }, "slow");
 
     }).fail(function() {
         console.log("failed to return results");
     });
 }
+
 KRONOS.hideIndices=function(){
     
         seriesData=[]
         seriesData.push(originalSearch)
         
         KRONOS.createChart();
-        KRONOS.showSettings();
         
-        window.scrollTo(0,document.body.scrollHeight);
+        $("html, body").animate({ scrollTop: 0 }, "slow");
 }
+
+
 KRONOS.getML=function(){
+
+    if(active2){
+        $("#settings").hide();
+        active2=false;
+    }else{
+        KRONOS.showLoader() 
+       active2 = true;
+
     data=[]
     data['Current Stock Price']= currentValue
-
-    KRONOS.showLoader()
-    KRONOS.showSettings();
+    $("#settings").fadeIn();
     $.when(
         $.post("/getMLStats",{
             stockTicker : ids       
         }).done(function(response) {
             
-            response=JSON.parse(response)
-            console.log(response)
+            response=JSON.parse(response);
+            console.log(response);
             jQuery.extend(data, response);
             // data.push(response)
         })
+        window.scrollTo(0,document.body.scrollHeight);
 
     ).then(function() {
         Heurisitic=0
@@ -287,9 +308,9 @@ KRONOS.getML=function(){
                 $('<td/>').append($("<span/>").text(data[label]))))
     }
         // console.log("object is: " + JSON.stringify(seriesOptions));
-        KRONOS.showStats();
         KRONOS.hideLoader();
     });
+    }
 }
 
 /**
@@ -382,7 +403,6 @@ KRONOS.makeChart=function(){
         if (seriesCounter === names.length) {
             // console.log(JSON.stringify(seriesOptions))
             KRONOS.createChart();
-            KRONOS.showSettings();
             window.scrollTo(0,document.body.scrollHeight);
         }
     	});
@@ -419,13 +439,18 @@ KRONOS.getStats=function(ids){
     });
     
 }
-KRONOS.showSettings=function(){
-	// $("#settings").css("display", "block");
-	$("#settings").fadeIn("slow");
-}
+
+
 KRONOS.showStats=function(){
     // $("#settings").css("display", "block");
-    $("#stats").fadeIn("slow");
+    if(active3){
+        $("#stats").hide();
+        active3 = false;
+    }else{
+       $("#stats").fadeIn(); 
+       window.scrollTo(0,document.body.scrollHeight);
+       active3 = true;
+    }
     $("#stats").css("float", "right").css("max-width", "45%");
 }
 

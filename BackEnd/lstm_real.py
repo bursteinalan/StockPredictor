@@ -16,10 +16,11 @@ def create_dataset(dataset, look_back=1):
 		dataY.append(dataset[i + look_back, 0])
 	return numpy.array(dataX), numpy.array(dataY)
 
-def main(code):
+def main(x):
     # load the dataset
     
-    x = numpy.array(getDataSet(code))
+    x.append([0,0])
+    x = numpy.array(x)
     dataframe = pd.DataFrame(i[1] for i in x[-501:])
     
     dataset = dataframe.values
@@ -47,7 +48,7 @@ def main(code):
     model.add(LSTM(10, input_shape=(1, look_back)))
     model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
-    model.fit(trainX, trainY, epochs = 90, batch_size=1, verbose=2)
+    model.fit(trainX, trainY, epochs = 1, batch_size=1, verbose=2)
     
     # make predictions
     trainPredict = model.predict(trainX)
@@ -68,4 +69,4 @@ def main(code):
     return testPredict[-1][0]
 
 if __name__ == "__main__":
-    main("AAPL")
+    main(x)

@@ -282,7 +282,7 @@ KRONOS.getML=function(){
             jQuery.extend(data, response);
             // data.push(response)
         })
-        
+
 
     ).then(function() {
         Heurisitic=0
@@ -308,6 +308,7 @@ KRONOS.getML=function(){
                 $('<td/>').append($("<span/>").text(data[label]))))
     }
         // console.log("object is: " + JSON.stringify(seriesOptions));
+        window.scrollTo(0,document.body.scrollHeight);
         KRONOS.hideLoader();
          $("#settings").fadeIn();
         window.scrollTo(0,document.body.scrollHeight);

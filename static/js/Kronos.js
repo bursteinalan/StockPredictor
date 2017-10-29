@@ -271,7 +271,7 @@ KRONOS.getML=function(){
 
     data=[]
     data['Current Stock Price']= currentValue
-    $("#settings").fadeIn();
+   
     $.when(
         $.post("/getMLStats",{
             stockTicker : ids       
@@ -282,7 +282,7 @@ KRONOS.getML=function(){
             jQuery.extend(data, response);
             // data.push(response)
         })
-        window.scrollTo(0,document.body.scrollHeight);
+        
 
     ).then(function() {
         Heurisitic=0
@@ -309,6 +309,8 @@ KRONOS.getML=function(){
     }
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.hideLoader();
+         $("#settings").fadeIn();
+        window.scrollTo(0,document.body.scrollHeight);
     });
     }
 }

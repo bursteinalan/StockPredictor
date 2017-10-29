@@ -28,6 +28,12 @@ p{
     border-color: #00171f;
 }
 
+.btn-success:hover {
+    color: #ffffff;
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
 .logo {
     display: table-cell;
     vertical-align: middle;

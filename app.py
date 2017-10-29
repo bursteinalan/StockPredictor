@@ -18,8 +18,8 @@ def getDataSetWrapper():
 
 @app.route("/marketData", methods=["POST"])
 def getMarketData():
-    return json.dumps([parser.getDataSet("^INX"), parser.getDataSet("^IXIC") ])
-    
+    return json.dumps([parser.getDataSet("^GSPC"), parser.getDataSet("^IXIC") ])
+
 @app.route('/getStat', methods=["POST"])
 def getStatWrapper():
     ticker = request.form['stockTicker']

@@ -4,6 +4,7 @@ var KRONOS = {
 
 var ids
 var seriesData=[]
+var currentValue
 var originalSearch={}
 var seriesOptions = [],
     seriesCounter = 0,
@@ -48,6 +49,7 @@ KRONOS.search=function(){
             data: response
         };
         originalSearch=seriesOptions
+        currentValue=response[response.length-1][1]
         seriesData.push(seriesOptions)
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart();
@@ -115,10 +117,34 @@ KRONOS.hideIndices=function(){
         window.scrollTo(0,document.body.scrollHeight);
 }
 KRONOS.getML=function(){
-    $.post("/getMLStats",{
-        stockTicker : ids       
-    }).done(function(response) {
-        console.log(response)
+    data=[]
+    data['Current Stock Price']= currentValue
+
+    $.when(
+        $.post("/getMLStats",{
+            stockTicker : ids       
+        }).done(function(response) {
+            console.log(response)
+            // data.push(response)
+        })
+
+    ).then(function() {
+        table=$("#machineLearning")
+        resultsTableBody = table.find("tbody");
+
+        table.find("thead").remove();
+        $("#machineLearning" + " tr:has(td)").remove();
+        // console.dir(response)
+        console.log(data)
+        for(label in data ){
+            resultsTableBody.append($('<tr/>').append(
+                $('<td/>').append($("<span/>").text(label)))
+        
+        .append(
+                $('<td/>').append($("<span/>").text(data[label]))))
+    }
+        // console.log("object is: " + JSON.stringify(seriesOptions));
+        KRONOS.showStats();
     });
 }
 
@@ -218,12 +244,7 @@ KRONOS.makeChart=function(){
     	});
 	});
 }
-KRONOS.showAgg=function(){
 
-}
-KRONOS.showAll=function(){
-
-}
 KRONOS.getStats=function(ids){
     console.log('Getting Stats')
     $.post("/getStat", {
@@ -245,7 +266,6 @@ KRONOS.getStats=function(ids){
                 $('<td/>').append($("<span/>").text(data[label]))))
     }
         // console.log("object is: " + JSON.stringify(seriesOptions));
-        KRONOS.createChart();
         KRONOS.showStats();
         
         window.scrollTo(0,document.body.scrollHeight);

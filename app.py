@@ -5,6 +5,9 @@ import os
 
 
 template_dir = os.path.abspath('static')
+cachedDir = "cachedData"
+if (not os.path.isdir(cachedDir)):
+    os.makedirs(cachedDir)
 app = Flask(__name__, template_folder=template_dir)
 
 @app.route("/")
@@ -14,7 +17,7 @@ def main():
 @app.route('/getDataSet', methods=["POST"])
 def getDataSetWrapper():
     ticker = request.form['stockTicker']
-    fname = r"cachedData/DataSet-" + ticker + ".txt"
+    fname = cachedDir+"/DataSet-" + ticker + ".txt"
     if os.path.isfile(fname):
         with open(fname, 'r') as json_file:  
             return json_file.read()
@@ -25,7 +28,7 @@ def getDataSetWrapper():
 
 @app.route("/marketData", methods=["POST"])
 def getMarketData():
-    fname = r"cachedData/marketData.txt"
+    fname =  cachedDir+"/marketData.txt"
     if os.path.isfile(fname):
         with open(fname, 'r') as json_file:  
             return json_file.read()
@@ -37,7 +40,7 @@ def getMarketData():
 @app.route('/getStat', methods=["POST"])
 def getStatWrapper():
     ticker = request.form['stockTicker']
-    fname = r"cachedData/Stat-" + ticker + ".txt"
+    fname =  cachedDir+"/Stat-" + ticker + ".txt"
     if os.path.isfile(fname):
         with open(fname, 'r') as json_file:  
             return json_file.read()

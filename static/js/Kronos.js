@@ -31,6 +31,13 @@ KRONOS.test = function(val) {
 
 
 KRONOS.search=function(){
+    //clear Tables
+    $("#machineLearning").find("thead").remove();
+    $("#machineLearning"+ " tr:has(td)").find("thead").remove();
+
+    $("#customers").find("thead").remove();
+    $("#customers" + " tr:has(td)").remove();
+
 	ids=$('#searchIds').val()
     if(ids==''){
         ids='AAPL'
@@ -54,6 +61,9 @@ KRONOS.search=function(){
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart();
         KRONOS.showSettings();
+
+
+
         
         window.scrollTo(0,document.body.scrollHeight);
 		
@@ -124,19 +134,24 @@ KRONOS.getML=function(){
         $.post("/getMLStats",{
             stockTicker : ids       
         }).done(function(response) {
+            
+            response=JSON.parse(response)
             console.log(response)
+            jQuery.extend(data, response);
             // data.push(response)
         })
 
     ).then(function() {
-        table=$("#machineLearning")
-        resultsTableBody = table.find("tbody");
-
-        table.find("thead").remove();
+        
         $("#machineLearning" + " tr:has(td)").remove();
         // console.dir(response)
         console.log(data)
+        table=$("#machineLearning")
+        $("#machineLearning" + " tr:has(td)").remove();
+        resultsTableBody = table.find("tbody");
+        table.find("thead").remove();
         for(label in data ){
+            
             resultsTableBody.append($('<tr/>').append(
                 $('<td/>').append($("<span/>").text(label)))
         

@@ -47,7 +47,7 @@ def LSTM_engine(x):
     model.add(LSTM(10, input_shape=(1, look_back)))
     model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
-    model.fit(trainX, trainY, epochs = 90, batch_size=1, verbose=2)
+    model.fit(trainX, trainY, epochs = 40, batch_size=1, verbose=2)
     
     # make predictions
     trainPredict = model.predict(trainX)

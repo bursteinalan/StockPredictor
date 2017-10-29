@@ -35,9 +35,8 @@ p{
 }
 
 .btn-info{
-    color: #ffffff;
-    background-color: #2e2e2e;
-    border-color: #2e2e2e;
+    background-color: #00171f;
+    border-color: #00171f;
 }
 
 .logo {
@@ -68,6 +67,7 @@ p{
     background-color: #666666;
 }
 .panel-default>.panel-heading{
+    color:#ffffff;
     background-color: #00171f;
 }
 .navbar{

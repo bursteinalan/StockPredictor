@@ -282,7 +282,6 @@ KRONOS.getML=function(){
             jQuery.extend(data, response);
             // data.push(response)
         })
-        window.scrollTo(0,document.body.scrollHeight);
 
     ).then(function() {
         
@@ -302,6 +301,7 @@ KRONOS.getML=function(){
                 $('<td/>').append($("<span/>").text(data[label]))))
     }
         // console.log("object is: " + JSON.stringify(seriesOptions));
+        window.scrollTo(0,document.body.scrollHeight);
         KRONOS.hideLoader();
     });
     }

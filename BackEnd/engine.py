@@ -34,18 +34,13 @@ def parse_data(data):
 	return startdate, dates, prices
 
 def train(dates, prices):
-
-	# svr_lin = SVR(kernel='linear', C=1e3, verbose=2, max_iter=100000000)
-	# svr_poly = SVR(kernel='poly', C=1e3, degree=3, verbose = True, max_iter = 100000000)
 	svr_rbf = SVR(kernel='rbf', C=1e3, gamma=0.1, verbose = True)
-
 	dates = np.reshape(dates, (len(dates), 1))
 	svr_rbf.fit(dates, prices)
-
 	return svr_rbf
 
 def predict(trained, x):
-	return svr_rbf.predict(x)
+	return trained.predict(x).tolist()
 
 
 

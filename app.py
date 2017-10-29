@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from BackEnd import parser, engine
+from datetime import datetime
 import json
 import os
 
@@ -68,7 +69,7 @@ def getNextDay():
         data = json.loads(jsonData)
         start, dates, prices = engine.parse_data(data)
         svm = engine.train(dates, prices)
-        predictValue = engine.predict(svm, (datetime.datetime.now() - start).days)
+        predictValue = engine.predict(svm, (datetime.now() - datetime.fromtimestamp(start/1000)).days)
         json.dump(predictValue, outfile)
         return json.dumps(predictValue)
 

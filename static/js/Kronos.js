@@ -2,9 +2,10 @@ var KRONOS = {
 	logger : null
 };
 
-
+var seriesData=[]
 var seriesOptions = [],
     seriesCounter = 0,
+
     names = ['MSFT', 'AAPL', 'GOOG'];
 
 KRONOS.documentReady = function() {
@@ -39,10 +40,12 @@ KRONOS.search=function(){
 		// console.dir("Server returned: " + response);
         response=JSON.parse(response)
         // console.dir(response)
+        seriesData=[]
         seriesOptions = {
             name: ids,
             data: response
         };
+        seriesData.append(seriesOptions)
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart();
         KRONOS.showSettings();
@@ -56,7 +59,32 @@ KRONOS.search=function(){
 	// KRONOS.makeChart()
 }
 KRONOS.overlayIndices=function(){
+    $.post("/marketData").done(function(response) {
+        // console.dir("Server returned: " + response);
+        response=JSON.parse(response)
+        // console.dir(response)
+        SP=response[0]
+        NASD=response[1]
 
+        seriesOptions = {
+            name: 'S&P',
+            data: SP
+        }
+        seriesData.append(seriesOptions)
+        seriesOptions = {
+            name: 'NASDAQ',
+            data: NASD
+        }
+        seriesData.append(seriesOptions)
+        // console.log("object is: " + JSON.stringify(seriesOptions));
+        KRONOS.createChart();
+        KRONOS.showSettings();
+        
+        window.scrollTo(0,document.body.scrollHeight);
+        
+    }).fail(function() {
+        console.log("failed to return results");
+    });
 }
 
 /**
@@ -93,7 +121,7 @@ KRONOS.createChart=function() {
             split: true
         },
 
-        series: [seriesOptions]
+        series: seriesData
     }); 
 }
 KRONOS.makeChart=function(){
@@ -126,6 +154,7 @@ KRONOS.showAll=function(){
 
 }
 KRONOS.getStats=function(ids){
+    console.log('Getting Stats')
     $.post("/getStat", {
         stockTicker : ids       
     }).done(function(response) {

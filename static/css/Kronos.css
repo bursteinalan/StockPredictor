@@ -34,6 +34,12 @@ p{
     border-color: #2e2e2e;
 }
 
+.btn-info{
+    color: #ffffff;
+    background-color: #2e2e2e;
+    border-color: #2e2e2e;
+}
+
 .logo {
     display: table-cell;
     vertical-align: middle;
@@ -62,7 +68,7 @@ p{
     background-color: #666666;
 }
 .panel-default>.panel-heading{
-    background-color: #92acda;
+    background-color: #00171f;
 }
 .navbar{
     background-color: #00171f;
@@ -71,26 +77,27 @@ p{
 }
 
 .navbar-nav{
-    background-color: #00171f;
+    color: #ffffff;
+    background-color: #2e2e2e;
     font-family: Roboto;
     margin-top:-14px;
     position: absolute;
-    left: 30%;
-    top: 50%;
+    left: 15%;
+    top: 55%;
 }
 
 #customers {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-family: Roboto;
     border-collapse: collapse;
     width: 100%;
 }
 
 #customers td, #customers th {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 20px;
 }
 
-#customers tr:nth-child(even){background-color: #f2f2f2;}
+#customers tr:nth-child(even){background-color: #ddd;}
 
 #customers tr:hover {background-color: #ddd;}
 
@@ -98,6 +105,6 @@ p{
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #4CAF50;
+    background-color: #2e2e2e;
     color: white;
 }

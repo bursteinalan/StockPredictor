@@ -2,9 +2,11 @@ var KRONOS = {
 	logger : null
 };
 
-
+var seriesData=[]
+var originalSearch={}
 var seriesOptions = [],
     seriesCounter = 0,
+
     names = ['MSFT', 'AAPL', 'GOOG'];
 
 KRONOS.documentReady = function() {
@@ -31,21 +33,25 @@ KRONOS.search=function(){
     if(ids==''){
         ids='AAPL'
     }
-	console.log(ids)
-
+	// console.log(ids)
+    KRONOS.getStats(ids);
 	$.post("/getDataSet", {
 		stockTicker : ids 		
  	}).done(function(response) {
-		console.dir("Server returned: " + response);
+		// console.dir("Server returned: " + response);
         response=JSON.parse(response)
-        console.dir(response)
+        // console.dir(response)
+        seriesData=[]
         seriesOptions = {
             name: ids,
             data: response
         };
-        console.log("object is: " + JSON.stringify(seriesOptions));
-        KRONOS.createChart()
+        originalSearch=seriesOptions
+        seriesData.push(seriesOptions)
+        // console.log("object is: " + JSON.stringify(seriesOptions));
+        KRONOS.createChart();
         KRONOS.showSettings();
+        
         window.scrollTo(0,document.body.scrollHeight);
 		
 	}).fail(function() {
@@ -54,7 +60,49 @@ KRONOS.search=function(){
 
 	// KRONOS.makeChart()
 }
+KRONOS.overlayIndices=function(){
+    $.post("/marketData").done(function(response) {
+        // console.dir("Server returned: " + response);
+        response=JSON.parse(response)
+        // console.dir(response)
+        SP=response[0]
+        NASD=response[1]
+        DOW=response[2]
+        seriesData=[]
+        seriesData.push(originalSearch)
+        console.log(response)
+        seriesOptions = {
+            name: 'S&P 500',
+            data: SP
+        }
+        seriesData.push(seriesOptions)
 
+        seriesOptions = {
+            name: 'NASDAQ',
+            data: NASD
+        }
+        seriesData.push(seriesOptions)
+
+        seriesOptions = {
+            name: 'DOW Jones',
+            data: DOW
+        }
+        seriesData.push(seriesOptions)
+
+        for(i=0;i<seriesData.length;i++){
+            seriesData[i]._colorIndex=i;
+        }
+        console.log(seriesData)
+        // console.log("object is: " + JSON.stringify(seriesOptions));
+        KRONOS.createChart();
+        KRONOS.showSettings();
+        
+        window.scrollTo(0,document.body.scrollHeight);
+
+    }).fail(function() {
+        console.log("failed to return results");
+    });
+}
 
 /**
  * Create the chart when all data is loaded
@@ -64,34 +112,64 @@ KRONOS.createChart=function() {
 
     Highcharts.stockChart('container', {
 
+        
+        chart: {
+        zoomType: 'x'
+      },
+           
+
         rangeSelector: {
             selected: 4
         },
 
         yAxis: {
-            
+            labels: {
+                formatter: function () {
+                    return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                }
+            },
             plotLines: [{
                 value: 0,
                 width: 2,
                 color: 'silver'
             }]
         },
+        xAxis: {
+        crosshair: {
+            enabled: true
+        }
+        },
+
 
         plotOptions: {
-            series: {
-                showInNavigator: true,
-                turboThreshold: 0
+             series:{
+                // showInNavigator: true,
+                turboThreshold: 0,
+                compare: 'percent'
             }
         },
 
         tooltip: {
-            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}<br/>',
+            // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}<br/>',
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
             valueDecimals: 2,
             split: true
         },
 
-        series: [seriesOptions]
-    });
+        legend: {
+        enabled: true
+        // align: 'right',
+        // backgroundColor: '#FCFFC5',
+        // borderColor: 'black',
+        // borderWidth: 2,
+        // layout: 'vertical',
+        // verticalAlign: 'top',
+        // y: 100,
+        // shadow: true
+    },
+
+        series: seriesData
+    }); 
 }
 KRONOS.makeChart=function(){
 	$.each(names, function (i, name) {
@@ -108,7 +186,7 @@ KRONOS.makeChart=function(){
         seriesCounter += 1;
 
         if (seriesCounter === names.length) {
-            console.log(JSON.stringify(seriesOptions))
+            // console.log(JSON.stringify(seriesOptions))
             KRONOS.createChart();
             KRONOS.showSettings();
             window.scrollTo(0,document.body.scrollHeight);
@@ -122,9 +200,44 @@ KRONOS.showAgg=function(){
 KRONOS.showAll=function(){
 
 }
+KRONOS.getStats=function(ids){
+    console.log('Getting Stats')
+    $.post("/getStat", {
+        stockTicker : ids       
+    }).done(function(response) {
+        // console.dir("Server returned: " + response);
+        data=JSON.parse(response)
+        table=$("#customers")
+        resultsTableBody = table.find("tbody");
+
+        table.find("thead").remove();
+        $("#customers" + " tr:has(td)").remove();
+        // console.dir(response)
+        for(label in data ){
+            resultsTableBody.append($('<tr/>').append(
+                $('<td/>').append($("<span/>").text(label)))
+        
+        .append(
+                $('<td/>').append($("<span/>").text(data[label]))))
+    }
+        // console.log("object is: " + JSON.stringify(seriesOptions));
+        KRONOS.createChart();
+        KRONOS.showStats();
+        
+        window.scrollTo(0,document.body.scrollHeight);
+        
+    }).fail(function() {
+        console.log("failed to return results");
+    });
+    
+}
 KRONOS.showSettings=function(){
 	// $("#settings").css("display", "block");
 	$("#settings").fadeIn("slow");
+}
+KRONOS.showStats=function(){
+    // $("#settings").css("display", "block");
+    $("#stats").fadeIn("slow");
 }
 
 

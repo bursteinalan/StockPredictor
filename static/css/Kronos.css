@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700|Roboto:300,300i,400,400i,500,500i,700,700i,900');
 
-h1,h2,h3,h4,h5,h6{
+h1{
     font-family: Oswald;
+    font-size: 60px; 
+}
+
+h2,h3,h4,h5,h6{
+    font-family: Oswald;
+    color: #ffffff
 }
 
 body {
-	padding-top: 25px;
     background-color: #2e2e2e;
     color: #777777;
 }
@@ -13,10 +18,35 @@ body {
 p{
     color:#666666;
     line-height:28px;
-    font-size:16px;
+    font-size:25px;
     letter-spacing:0.4px;
+    font-family: Roboto;
 }
 
+.btn-success{
+    background-color: #00171f;
+    border-color: #00171f;
+}
+
+.btn-success:hover {
+    color: #ffffff;
+    background-color: #2e2e2e;
+    border-color: #2e2e2e;
+}
+
+.btn-info{
+    background-color: #00171f;
+    border-color: #00171f;
+}
+
+.logo {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100px;
+}
+.logo > a {
+    float: left;
+}
 .name {
 	padding: 40px 15px;
 	text-align: center;
@@ -31,11 +61,50 @@ p{
     border-top:1px solid #666;
 }
 .panel{
-    border-color: #637da9;
+    border-color: #666666;
 }
 .panel-body{
-    background-color: #637da9;
+    background-color: #666666;
 }
 .panel-default>.panel-heading{
-    background-color: #92acda;
+    color:#ffffff;
+    background-color: #00171f;
+}
+.navbar{
+    background-color: #00171f;
+    height: 100px;
+    width: auto;
+}
+
+.navbar-nav{
+    color: #ffffff;
+    background-color: #2e2e2e;
+    font-family: Roboto;
+    margin-top:-14px;
+    position: absolute;
+    left: 15%;
+    top: 55%;
+}
+
+#customers {
+    font-family: Roboto;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+#customers tr:nth-child(even){background-color: #ddd;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #2e2e2e;
+    color: white;
 }

@@ -4,6 +4,7 @@ h1{
     font-family: Oswald;
     font-size: 60px; 
 }
+
 h2,h3,h4,h5,h6{
     font-family: Oswald;
     color: #ffffff
@@ -21,6 +22,14 @@ p{
     letter-spacing:0.4px;
 }
 
+.logo {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100px;
+}
+.logo > a {
+    float: left;
+}
 .name {
 	padding: 40px 15px;
 	text-align: center;
@@ -44,7 +53,7 @@ p{
     background-color: #92acda;
 }
 .navbar{
-    background-color:rgba(0, 0, 0, .3);
+    background-color: #00171f;
     height: 100px;
     width: auto;
 }

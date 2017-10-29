@@ -12,10 +12,122 @@ var seriesOptions = [],
     names = ['MSFT', 'AAPL', 'GOOG'];
 
 KRONOS.documentReady = function() {
+    $("#searchIds").keyup(function (e) {
+        if (e.which == 13) {
+           $("#searchButton").click();
+        }
+     });
+
+
+
 	console.log("Kronos is document ready!");
     $("html, body").animate({ scrollTop: 0 }, "slow");
 };
 
+KRONOS.runLoader=function(){
+
+var data1 = []
+var data2 = []
+var data3 = []
+
+for(i=0; i < 15; i++){
+  data1[i] = Math.floor(Math.random() * 30 + 20 + i);
+  data2[i] = Math.floor(Math.random() * 20 + 10 + i*3);
+  data3[i] = Math.floor(Math.random() * 40 + 30 + i*2);
+}
+
+var chart = new CanvasJS.Chart("loader", {
+  animationEnabled: true,
+  theme: "light2",
+  backgroundColor: "#00171f",
+  animationDuration: 3000,
+  axisY:{
+       title: "",
+       tickLength: 0,
+       lineThickness:0,
+       gridThickness:0,
+       includeZero: false,
+       margin:0,
+       valueFormatString:" " //comment this to show numeric values
+  },
+  axisX:{
+       title: "",
+       tickLength: 0,
+       margin:0,
+       lineThickness:0,
+       gridThickness:0,
+
+       valueFormatString:" " //comment this to show numeric values
+  },
+  data: [{        
+    type: "line", 
+    lineThickness: 5,
+    color: "#FFFFFF",      
+    dataPoints: [
+      { y: data1[0] },
+      { y: data1[1]},
+      { y: data1[2] },
+      { y: data1[3]},
+      { y: data1[4] },
+      { y: data1[5]},
+      { y: data1[6] },
+      { y: data1[7] },
+      { y: data1[8] },
+      { y: data1[9] },
+      { y: data1[10] },
+      { y: data1[11] },
+      { y: data1[12]},
+      { y: data1[13]},
+      {y: data1[14]}
+    ]
+  },
+  {        
+    type: "line", 
+    lineThickness: 5,
+    color: "#FFBD33",      
+    dataPoints: [
+      { y: data2[0] },
+      { y: data2[1]},
+      { y: data2[2] },
+      { y: data2[3]},
+      { y: data2[4] },
+      { y: data2[5]},
+      { y: data2[6] },
+      { y: data2[7] },
+      { y: data2[8] },
+      { y: data2[9] },
+      { y: data2[10] },
+      { y: data2[11] },
+      { y: data2[12] },
+      { y: data2[13] },
+      { y: data2[14] }
+    ]
+  },
+  {        
+    type: "line", 
+    lineThickness: 5,
+    color: "#FFBD33",      
+    dataPoints: [
+      { y: data3[0] },
+      { y: data3[1]},
+      { y: data3[2] },
+      { y: data3[3]},
+      { y: data3[4] },
+      { y: data3[5]},
+      { y: data3[6] },
+      { y: data3[7] },
+      { y: data3[8] },
+      { y: data3[9] },
+      { y: data3[10] },
+      { y: data3[11] },
+      { y: data3[12] },
+      { y: data3[13] },
+      { y: data3[14] }
+    ]
+  }]
+});
+chart.render();
+}
 
 //Post example
 KRONOS.test = function(val) {
@@ -37,6 +149,7 @@ KRONOS.search=function(){
     active = false;
     active2=false;
     active3=false;
+    KRONOS.showLoader();
     //clear Tables
     $("#machineLearning").find("thead").remove();
     $("#machineLearning"+ " tr:has(td)").find("thead").remove();
@@ -68,7 +181,7 @@ KRONOS.search=function(){
         seriesData.push(seriesOptions)
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart();
-
+        KRONOS.hideLoader();
 
         $('#search').hide().addClass('search-clicked').fadeIn();
         $('#comp-title').hide();
@@ -92,6 +205,7 @@ KRONOS.overlayIndices=function(){
     }
 
     active = true;
+    KRONOS.showLoader();
     $.post("/marketData").done(function(response) {
         // console.dir("Server returned: " + response);
         response=JSON.parse(response)
@@ -126,6 +240,7 @@ KRONOS.overlayIndices=function(){
         console.log(seriesData)
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart();
+        KRONOS.hideLoader();
         
         window.scrollTo(0,document.body.scrollHeight);
 
@@ -146,6 +261,10 @@ KRONOS.hideIndices=function(){
 
 
 KRONOS.getML=function(){
+    data=[]
+    data['Current Stock Price']= currentValue
+
+    KRONOS.showLoader()
     KRONOS.showSettings();
     data=[];
     data['Current Stock Price']= currentValue;
@@ -178,6 +297,7 @@ KRONOS.getML=function(){
                 $('<td/>').append($("<span/>").text(data[label]))))
     }
         // console.log("object is: " + JSON.stringify(seriesOptions));
+        KRONOS.hideLoader();
     });
 }
 
@@ -328,6 +448,13 @@ KRONOS.showStats=function(){
     }
     $("#stats").css("float", "right").css("max-width", "45%");
 }
+
+KRONOS.showLoader = function() {
+    $("#loading").css("display", "block");
+};
+KRONOS.hideLoader = function() {
+    $("#loading").css("display", "none");
+};
 
 //Handle HTML for voice recording
 KRONOS.startRecording = function() {

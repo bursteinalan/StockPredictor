@@ -37,6 +37,10 @@ p{
     margin: -17px 0 0 -15px;
 }
 
+#search-btn {
+    margin-left: 15px;
+}
+
 .btn img {
     width: 50px;
     height: auto;
@@ -90,6 +94,8 @@ p{
 
 #stats {
     background-color: #fff;
+    padding-left: 5px;
+    margin-right: 10px;
 }
 
 .panel-heading {
@@ -99,9 +105,15 @@ p{
     background-color: #fff;
     color: rgb(0,23,31);
     font-size: 30px;
-    margin-bottom: -10px;
     padding-left: 0px
     
+}
+
+.ExampleButton.btn {
+    margin:0;
+    font-size: 10px;
+    border: 1px solid white;
+
 }
 
 .panel-body-1{
@@ -120,8 +132,14 @@ p{
 }
 
 #mic {
-    margin: -6px 30px 0 20%;
+    margin: -6px 50px 0 20%;
     padding: 0;
+}
+
+#settings {
+    max-width: 50%;
+    float:right;
+    padding: 0 15px;
 }
 
 .navbar{
@@ -176,3 +194,4 @@ p{
     background-color: #2e2e2e;
     color: white;
 }
+

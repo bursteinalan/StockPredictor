@@ -410,6 +410,7 @@ KRONOS.getStats=function(ids){
     }).done(function(response) {
         // console.dir("Server returned: " + response);
         data=JSON.parse(response)
+        console.log(data)
         table=$("#customers")
         resultsTableBody = table.find("tbody");
 

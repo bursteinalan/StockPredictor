@@ -3,6 +3,7 @@ var KRONOS = {
 };
 
 var seriesData=[]
+var originalSearch={}
 var seriesOptions = [],
     seriesCounter = 0,
 
@@ -45,6 +46,7 @@ KRONOS.search=function(){
             name: ids,
             data: response
         };
+        originalSearch=seriesOptions
         seriesData.push(seriesOptions)
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart();
@@ -65,9 +67,12 @@ KRONOS.overlayIndices=function(){
         // console.dir(response)
         SP=response[0]
         NASD=response[1]
+        DOW=response[2]
+        seriesData=[]
+        seriesData.push(originalSearch)
         console.log(response)
         seriesOptions = {
-            name: 'S&P',
+            name: 'S&P 500',
             data: SP
         }
         seriesData.push(seriesOptions)
@@ -77,12 +82,23 @@ KRONOS.overlayIndices=function(){
             data: NASD
         }
         seriesData.push(seriesOptions)
+
+        seriesOptions = {
+            name: 'DOW Jones',
+            data: DOW
+        }
+        seriesData.push(seriesOptions)
+
+        for(i=0;i<seriesData.length;i++){
+            seriesData[i]._colorIndex=i;
+        }
+        console.log(seriesData)
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart();
         KRONOS.showSettings();
         
         window.scrollTo(0,document.body.scrollHeight);
-        
+
     }).fail(function() {
         console.log("failed to return results");
     });
@@ -95,6 +111,12 @@ KRONOS.overlayIndices=function(){
 KRONOS.createChart=function() {
 
     Highcharts.stockChart('container', {
+
+        
+        chart: {
+        zoomType: 'x'
+      },
+           
 
         rangeSelector: {
             selected: 4
@@ -112,11 +134,16 @@ KRONOS.createChart=function() {
                 color: 'silver'
             }]
         },
+        xAxis: {
+        crosshair: {
+            enabled: true
+        }
+        },
 
 
         plotOptions: {
-            series: {
-                showInNavigator: true,
+             series:{
+                // showInNavigator: true,
                 turboThreshold: 0,
                 compare: 'percent'
             }

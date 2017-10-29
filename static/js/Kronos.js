@@ -32,7 +32,7 @@ KRONOS.search=function(){
         ids='AAPL'
     }
 	// console.log(ids)
-
+    KRONOS.getStats(ids);
 	$.post("/getDataSet", {
 		stockTicker : ids 		
  	}).done(function(response) {
@@ -44,8 +44,9 @@ KRONOS.search=function(){
             data: response
         };
         // console.log("object is: " + JSON.stringify(seriesOptions));
-        KRONOS.createChart()
+        KRONOS.createChart();
         KRONOS.showSettings();
+        
         window.scrollTo(0,document.body.scrollHeight);
 		
 	}).fail(function() {
@@ -54,7 +55,9 @@ KRONOS.search=function(){
 
 	// KRONOS.makeChart()
 }
+KRONOS.overlayIndices=function(){
 
+}
 
 /**
  * Create the chart when all data is loaded
@@ -91,7 +94,7 @@ KRONOS.createChart=function() {
         },
 
         series: [seriesOptions]
-    });
+    }); 
 }
 KRONOS.makeChart=function(){
 	$.each(names, function (i, name) {
@@ -122,9 +125,43 @@ KRONOS.showAgg=function(){
 KRONOS.showAll=function(){
 
 }
+KRONOS.getStats=function(ids){
+    $.post("/getStat", {
+        stockTicker : ids       
+    }).done(function(response) {
+        // console.dir("Server returned: " + response);
+        data=JSON.parse(response)
+        table=$("#customers")
+        resultsTableBody = table.find("tbody");
+
+        table.find("thead").remove();
+        $("#customers" + " tr:has(td)").remove();
+        // console.dir(response)
+        for(label in data ){
+            resultsTableBody.append($('<tr/>').append(
+                $('<td/>').append($("<span/>").text(label)))
+        
+        .append(
+                $('<td/>').append($("<span/>").text(data[label]))))
+    }
+        // console.log("object is: " + JSON.stringify(seriesOptions));
+        KRONOS.createChart();
+        KRONOS.showStats();
+        
+        window.scrollTo(0,document.body.scrollHeight);
+        
+    }).fail(function() {
+        console.log("failed to return results");
+    });
+    
+}
 KRONOS.showSettings=function(){
 	// $("#settings").css("display", "block");
 	$("#settings").fadeIn("slow");
+}
+KRONOS.showStats=function(){
+    // $("#settings").css("display", "block");
+    $("#stats").fadeIn("slow");
 }
 
 

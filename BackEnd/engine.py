@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import json
 import datetime as dt
-import parser
 from sklearn.svm import SVR
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
@@ -28,10 +27,9 @@ def pull_data(file):
 			dates.append((dt.datetime.strptime(date, '%Y-%m-%d') - startdate).days)
 
 
-		return dates, prices
+		return startdate, dates, prices
 
-def parse_data(stock):
-	data = parser.getDataSet(stock)
+def parse_data(data):
 	startdate = dt.datetime.strptime(data[0][0], '%Y-%m-%d')
 	for n in data:
 		dates.append(n[0])
@@ -39,13 +37,7 @@ def parse_data(stock):
 
 	return dates, prices
 
-def scale(prices):
-	return scaler.fit_transform(prices)
-
-def unscale(prices):
-	return scaler.inverse_transform(prices)
-
-def predict(dates, prices):
+def train(dates, prices):
 
 	# svr_lin = SVR(kernel='linear', C=1e3, verbose=2, max_iter=100000000)
 	# svr_poly = SVR(kernel='poly', C=1e3, degree=3, verbose = True, max_iter = 100000000)
@@ -54,22 +46,10 @@ def predict(dates, prices):
 	dates = np.reshape(dates, (len(dates), 1))
 	svr_rbf.fit(dates, prices)
 
-	plt.plot(dates, prices, color = 'blue', label='Actual')
-	plt.plot(dates, svr_rbf.predict(dates), color='green', label='RBF')
+	return svr_rbf
 
-	plt.xlabel('Date')
-	plt.ylabel('Price')
-	plt.title('SVR')
-	plt.legend()
-	plt.show()
-
-	return svr_rbf.predict(dates[len(dates) - 1] + 1)
-
-
-
-
-dates, prices = parse_data('GOOG')
-print(predict(dates, prices))
+def predict(trained, x):
+	return svr_rbf.predict(x)
 
 
 

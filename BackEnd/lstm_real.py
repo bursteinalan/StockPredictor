@@ -1,13 +1,13 @@
 import numpy
-import matplotlib.pyplot as plt
-import math
-from pandas import read_csv
+import pandas as pd
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import mean_squared_error
-#from parser1 import getDataSet
+#from sklearn.metrics import mean_squared_error
+from parser1 import getDataSet
+
+#RNN with LSTM
 
 # convert an array of values into a dataset matrix
 def create_dataset(dataset, look_back=1):
@@ -18,10 +18,12 @@ def create_dataset(dataset, look_back=1):
 		dataY.append(dataset[i + look_back, 0])
 	return numpy.array(dataX), numpy.array(dataY)
 
-def main():
+def main(x):
     # load the dataset
-    dataframe = read_csv('eggs.csv', usecols=[1], engine='python', skipfooter=3)
-    dataframe = dataframe[-1001:]
+    
+    x.append([0,0])
+    x = numpy.array(x)
+    dataframe = pd.DataFrame(i[1] for i in x[-501:])
     
     dataset = dataframe.values
     dataset = dataset.astype('float32')
@@ -48,7 +50,7 @@ def main():
     model.add(LSTM(10, input_shape=(1, look_back)))
     model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
-    model.fit(trainX, trainY, epochs = 80, batch_size=1, verbose=2)
+    model.fit(trainX, trainY, epochs = 90, batch_size=1, verbose=2)
     
     # make predictions
     trainPredict = model.predict(trainX)
@@ -61,28 +63,12 @@ def main():
     testY = scaler.inverse_transform([testY])
     
     # calculate root mean squared error
-    trainScore = math.sqrt(mean_squared_error(trainY[0], trainPredict[:,0]))
-    print('Train Score: %.2f RMSE' % (trainScore))
-    testScore = math.sqrt(mean_squared_error(testY[0], testPredict[:,0]))
-    print('Test Score: %.2f RMSE' % (testScore))
-    
-    # shift train predictions for plotting
-    trainPredictPlot = numpy.empty_like(dataset)
-    trainPredictPlot[:, :] = numpy.nan
-    trainPredictPlot[look_back:len(trainPredict)+look_back, :] = trainPredict
-    
-    # shift test predictions for plotting
-    testPredictPlot = numpy.empty_like(dataset)
-    testPredictPlot[:, :] = numpy.nan
-    testPredictPlot[len(trainPredict)+(look_back*2)+1:len(dataset)-1, :] = testPredict
-    
-    # plot baseline and predictions
-    plt.plot(scaler.inverse_transform(dataset))
-    plt.plot(trainPredictPlot)
-    plt.plot(testPredictPlot)
-    plt.show()
-    
+    # trainScore = math.sqrt(mean_squared_error(trainY[0], trainPredict[:,0]))
+    # print('Train Score: %.2f RMSE' % (trainScore))
+    # testScore = math.sqrt(mean_squared_error(testY[0], testPredict[:,0]))
+    # print('Test Score: %.2f RMSE' % (testScore))
+
     return testPredict[-1][0]
 
 if __name__ == "__main__":
-    main()
+    main(x)

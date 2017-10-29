@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from BackEnd import parser, engine
+from BackEnd import parser, engine, get_mapper
 from datetime import datetime
 import json
 import os
@@ -17,7 +17,7 @@ def main():
 
 @app.route('/getDataSet', methods=["POST"])
 def getDataSetWrapper():
-    ticker = request.form['stockTicker']
+    ticker = get_mapper.nameToTicker(request.form['stockTicker'])
     return getDataSet(ticker)
 
 def getDataSet(ticker):
@@ -43,7 +43,7 @@ def getMarketData():
 
 @app.route('/getStat', methods=["POST"])
 def getStatWrapper():
-    ticker = request.form['stockTicker']
+    ticker = get_mapper.nameToTicker(request.form['stockTicker'])
     return getStat(ticker)
 
 def getStat(ticker):
@@ -59,7 +59,7 @@ def getStat(ticker):
 
 @app.route('/getMLStats', methods=['POST'])
 def getNextDay():
-    ticker = request.form['stockTicker']
+    ticker = get_mapper.nameToTicker(request.form['stockTicker'])
     fname = cachedDir+"/MLStats-" + ticker + ".txt"
     if os.path.isfile(fname):
         with open(fname, 'r') as json_file:

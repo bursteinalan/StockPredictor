@@ -34,7 +34,7 @@ def parse_data(data):
 	return start, dates, prices
 
 def train(dates, prices):
-	svr = SVR(kernel='linear', C=1e3, verbose=True, max_iter=1000000000)
+	svr = SVR(kernel='rbf', C=1e3, gamma=0.1, verbose=True, max_iter=1000000000)
 	dates = np.reshape(dates, (len(dates), 1))
 	svr.fit(dates, prices)
 	return svr

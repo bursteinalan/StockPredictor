@@ -35,8 +35,18 @@
 <script type="text/javascript" src="/static/js/Kronos.js"></script>
 
 
+<script>
+window.onload = function () {
 
+
+
+
+
+}
+</script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
+
 
 
 <body onload="KRONOS.documentReady()">
@@ -90,7 +100,7 @@
 					</div>
 
 					<button type="button"
-							class="ExampleButton btn btn-success col-sm-2 col-xs-6 col-xs-offset-3 col-sm-offset-5" 
+							class="searchButton btn btn-success col-sm-2 col-xs-6 col-xs-offset-3 col-sm-offset-5" id="searchButton"
 							onclick="KRONOS.search()"><img src="/static/resources/arrow-left.png"></button>
 		
 
@@ -100,7 +110,9 @@
 			</div>
 		</div>
 		<!-- style="margin-top: 5px" -->
-
+		<div id="loaderContainer" style="display:none; position: absolute">
+		<div id="loader" style="height: 300px; width: 90%;display:block;margin: 00px auto 0 auto;background-color: #00171f;"></div>
+		</div>
 		<div class="col-md-12 col-xs-12 " id="container" style="height: 400px; min-width: 310px; margin-bottom: 10px; max-width: 70%"></div>
 
 		<div class="col-md-12 col-xs-12" id="stats" style="display: none;">
@@ -166,4 +178,5 @@
 	
 
 </body>
+
 </html>

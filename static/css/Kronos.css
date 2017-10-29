@@ -18,9 +18,13 @@ body {
 p{
     color:#666666;
     line-height:28px;
-    font-size:16px;
+    font-size:25px;
     letter-spacing:0.4px;
     font-family: Roboto;
+}
+
+button{
+    color: #00171f;
 }
 
 .logo {

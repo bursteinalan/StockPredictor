@@ -67,10 +67,10 @@ def getNextDay():
     with open(fname, 'w') as outfile: 
         jsonData = getDataSet(ticker)
         data = json.loads(jsonData)
-        LSTM_predictValue = lstm_real.LSTM_engine(data)
         start, dates, prices = engine.parse_data(data)
         svm = engine.train(dates, prices)
-        SVM_predictValue = engine.predict(svm, (datetime.now() - datetime.fromtimestamp(start/1000)).days)
+        SVM_predictValue = engine.predict(svm, dates[len(dates) - 1])
+        LSTM_predictValue = lstm_real.LSTM_engine(data)
         predictValue = {"SVM": SVM_predictValue, "LSTM": LSTM_predictValue}
         json.dump(predictValue, outfile)
         return json.dumps(predictValue)

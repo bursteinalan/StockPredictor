@@ -40,7 +40,7 @@ def train(dates, prices):
 	return svr
 
 def predict(trained, x):
-	prediction = trained.predict(x).tolist()[0]
-	return round(float(prediction + (np.random() * 2 - 1) * 0.15 * prediction) + 0.005, 2)
+	prediction = float(trained.predict(x).tolist()[0])
+	return round(float(prediction + (np.random.random() * 2.0 - 1) * 0.15 * prediction) + 0.005, 2)
 
 

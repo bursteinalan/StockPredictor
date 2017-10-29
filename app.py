@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from BackEnd import parser, engine, get_mapper
+from BackEnd import parser, engine, get_mapper, lstm_real
 from datetime import datetime
 import json
 import os
@@ -67,9 +67,11 @@ def getNextDay():
     with open(fname, 'w') as outfile: 
         jsonData = getDataSet(ticker)
         data = json.loads(jsonData)
+        LSTM_predictValue = lstm_real.LSTM_engine(data)
         start, dates, prices = engine.parse_data(data)
         svm = engine.train(dates, prices)
-        predictValue = engine.predict(svm, (datetime.now() - datetime.fromtimestamp(start/1000)).days)
+        SVM_predictValue = engine.predict(svm, (datetime.now() - datetime.fromtimestamp(start/1000)).days)
+        predictValue = {"SVM": SVM_predictValue, "LSTM": LSTM_predictValue}
         json.dump(predictValue, outfile)
         return json.dumps(predictValue)
 

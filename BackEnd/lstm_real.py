@@ -4,8 +4,6 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
 from sklearn.preprocessing import MinMaxScaler
-#from sklearn.metrics import mean_squared_error
-from parser1 import getDataSet
 
 #RNN with LSTM
 
@@ -18,12 +16,11 @@ def create_dataset(dataset, look_back=1):
 		dataY.append(dataset[i + look_back, 0])
 	return numpy.array(dataX), numpy.array(dataY)
 
-def main(x):
+def LSTM_engine(x):
     # load the dataset
-    
     x.append([0,0])
     x = numpy.array(x)
-    dataframe = pd.DataFrame(i[1] for i in x[-501:])
+    dataframe = pd.DataFrame(i[1] for i in x[-1001:])
     
     dataset = dataframe.values
     dataset = dataset.astype('float32')
@@ -68,7 +65,7 @@ def main(x):
     # testScore = math.sqrt(mean_squared_error(testY[0], testPredict[:,0]))
     # print('Test Score: %.2f RMSE' % (testScore))
 
-    return testPredict[-1][0]
+    return round(float(testPredict[-1][0]) + 0.005, 2)
 
 if __name__ == "__main__":
     main(x)

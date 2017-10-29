@@ -242,7 +242,7 @@ KRONOS.overlayIndices=function(){
         KRONOS.createChart();
         KRONOS.hideLoader();
         
-        window.scrollTo(0,document.body.scrollHeight);
+        $("html, body").animate({ scrollTop: 0 }, "slow");
 
     }).fail(function() {
         console.log("failed to return results");
@@ -256,7 +256,7 @@ KRONOS.hideIndices=function(){
         
         KRONOS.createChart();
         
-        window.scrollTo(0,document.body.scrollHeight);
+        $("html, body").animate({ scrollTop: 0 }, "slow");
 }
 
 
@@ -433,6 +433,7 @@ KRONOS.showSettings=function(){
 	// $("#settings").css("display", "block");
     if(active2){
         $("#settings").hide();
+        active2=false;
     }else{
        $("#settings").fadeIn(); 
        active2 = true;
@@ -442,6 +443,7 @@ KRONOS.showStats=function(){
     // $("#settings").css("display", "block");
     if(active3){
         $("#stats").hide();
+        active2 = false;
     }else{
        $("#stats").fadeIn(); 
        active3 = true;

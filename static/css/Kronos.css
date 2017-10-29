@@ -23,8 +23,9 @@ p{
     font-family: Roboto;
 }
 
-button{
-    color: #00171f;
+.btn-success{
+    background-color: #00171f;
+    border-color: #00171f;
 }
 
 .logo {
@@ -64,11 +65,11 @@ button{
 }
 
 .navbar-nav{
-    background: : #00171f;
+    background-color: #00171f;
     font-family: Roboto;
     margin-top:-14px;
     position: absolute;
-    left: 10%;
+    left: 30%;
     top: 50%;
 }
 

@@ -17,6 +17,9 @@ def main():
 @app.route('/getDataSet', methods=["POST"])
 def getDataSetWrapper():
     ticker = request.form['stockTicker']
+    return getDataSet(ticker)
+
+def getDataSet(ticker):
     fname = cachedDir+"/DataSet-" + ticker + ".txt"
     if os.path.isfile(fname):
         with open(fname, 'r') as json_file:  
@@ -40,6 +43,9 @@ def getMarketData():
 @app.route('/getStat', methods=["POST"])
 def getStatWrapper():
     ticker = request.form['stockTicker']
+    return getStat(ticker)
+
+def getStat(ticker):
     fname =  cachedDir+"/Stat-" + ticker + ".txt"
     if os.path.isfile(fname):
         with open(fname, 'r') as json_file:  
@@ -53,15 +59,18 @@ def getStatWrapper():
 @app.route('/getMLStats', methods=['POST'])
 def getNextDay():
     ticker = request.form['stockTicker']
-    fname = cachedDir+"/DataSet-" + ticker + ".txt"
+    fname = cachedDir+"/MLStats-" + ticker + ".txt"
     if os.path.isfile(fname):
-        with open(fname, 'r') as json_file:  
+        with open(fname, 'r') as json_file:
             return json_file.read()
     with open(fname, 'w') as outfile: 
-        data = parser.getDataSet(ticker)
+        jsonData = getDataSet(ticker)
+        data = json.loads(jsonData)
         start, dates, prices = engine.parse_data(data)
         svm = engine.train(dates, prices)
-        return engine.predict(svm, (datetime.datetime.now() - start).days)
+        predictValue = engine.predict(svm, (datetime.datetime.now() - start).days)
+        json.dump(predictValue, outfile)
+        return json.dumps(predictValue)
 
 if __name__ == "__main__":
     app.run()

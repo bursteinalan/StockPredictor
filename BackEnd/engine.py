@@ -6,6 +6,7 @@ from sklearn.svm import SVR
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 
+# for sample data
 def pull_data(file):
 	with open(file, 'r') as data_file:
 		df = pd.read_csv(data_file)
@@ -19,12 +20,15 @@ def pull_data(file):
 
 		return startdate, dates, prices
 
+# parser for api call
 def parse_data(data):
-	startdate = dt.datetime.strptime(data[0][0], '%Y-%m-%d')
+	startdate = data[0][0]
 	dates = []
 	prices = []
+	ms_to_day = 1000 * 60 * 24
+
 	for n in data:
-		dates.append(n[0])
+		dates.append((n[0] - startdate)/ms_to_day)
 		prices.append(n[1])
 
 	return startdate, dates, prices

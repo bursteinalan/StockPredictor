@@ -1,5 +1,3 @@
-#! /usr/bin/env python3
-
 from yahoo_historical import Fetcher
 from datetime import datetime
 from yahoo_finance import Share

@@ -33,7 +33,7 @@ def getDataSet(stockTicker):
 
 def getStat(stockTicker):
     ticker = Share(stockTicker)
-    stats = {"cap": ticker.get_market_cap(), "bitda" : ticker.get_ebitda(), "eps": ticker.get_earnings_share()}
+    stats = {"Market cap": ticker.get_market_cap(), "EBITDA" : ticker.get_ebitda(),"Price Earning Ratio":ticker.get_price_earnings_ratio(), "EPS": ticker.get_earnings_share(), "Dividend Yield": ticker.get_dividend_yield()}
     return stats
 
 

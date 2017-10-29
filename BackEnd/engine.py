@@ -22,8 +22,10 @@ def pull_data(file):
 
 # parser for api call
 def parse_data(data):
-	num
-	start = data[len(data)][0]
+	num = 1000
+
+	data = [-num:]
+	start = data[0][0]
 	dates = []
 	prices = []
 	ms_to_day = 1000 * 60 * 60 * 24

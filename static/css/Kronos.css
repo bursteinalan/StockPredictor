@@ -60,10 +60,11 @@ p{
 }
 
 .navbar-nav{
-    color: #00171f;
+    background: : #00171f;
     font-family: Roboto;
     margin-top:-14px;
     position: absolute;
+    left: 10%;
     top: 50%;
 }
 

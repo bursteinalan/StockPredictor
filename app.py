@@ -69,7 +69,7 @@ def getNextDay():
         data = json.loads(jsonData)
         start, dates, prices = engine.parse_data(data)
         svm = engine.train(dates, prices)
-        predictValue = engine.predict(svm, (datetime.now() - datetime.fromtimestamp(start/1000)).days)
+        predictValue = engine.predict(svm, dates[len(dates) - 1])
         json.dump(predictValue, outfile)
         return json.dumps(predictValue)
 

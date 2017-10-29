@@ -21,26 +21,28 @@ def pull_data(file):
 		return startdate, dates, prices
 
 # parser for api call
-def parse_data(data):
-	startdate = data[0][0]
-	dates = []
-	prices = []
-	ms_to_day = 1000 * 60 * 24
+def parse_data(filename):
+	with open(filename, 'r') as json_data:
+		data = json.load(json_data)
+		start = data[0][0]
+		dates = []
+		prices = []
+		ms_to_day = 1000 * 60 * 60 * 24
 
-	for n in data:
-		dates.append((n[0] - startdate)/ms_to_day)
-		prices.append(n[1])
+		for n in data:
+			dates.append((n[0] - start)/ms_to_day)
+			prices.append(n[1])
 
-	return startdate, dates, prices
+		return start, dates, prices
 
 def train(dates, prices):
-	svr_rbf = SVR(kernel='rbf', C=1e3, gamma=0.1, verbose = True)
+	svr = SVR(kernel='linear', C=1e3, verbose=True, max_iter=1000000000)
 	dates = np.reshape(dates, (len(dates), 1))
-	svr_rbf.fit(dates, prices)
-	return svr_rbf
+	svr.fit(dates, prices)
+	return svr
 
 def predict(trained, x):
-	return {"SVM" : trained.predict(x).tolist()[0]}
-
+	prediction = trained.predict(x).tolist()[0]
+	return {"SVM" : prediction + (np.random() * 2 - 1) * 0.15 * prediction}
 
 

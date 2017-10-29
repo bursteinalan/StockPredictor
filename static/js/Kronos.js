@@ -61,6 +61,7 @@ KRONOS.search=function(){
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart();
         KRONOS.showSettings();
+        KRONOS.showStats();
 
 
         $('#search').hide().addClass('search-clicked').fadeIn();
@@ -284,7 +285,7 @@ KRONOS.getStats=function(ids){
                 $('<td/>').append($("<span/>").text(data[label]))))
     }
         // console.log("object is: " + JSON.stringify(seriesOptions));
-        KRONOS.showStats();
+        
         
         window.scrollTo(0,document.body.scrollHeight);
         

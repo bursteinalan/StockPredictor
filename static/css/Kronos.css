@@ -93,13 +93,15 @@ p{
 }
 
 .panel-heading {
-    margin-top: -20px;
+    /*margin-top: -20px;*/
     font-family: Oswald;
     font-weight: 600;
     background-color: #fff;
     color: rgb(0,23,31);
     font-size: 30px;
     margin-bottom: -10px;
+    padding-left: 0px
+    
 }
 
 .panel-body-1{

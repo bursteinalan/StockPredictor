@@ -2,6 +2,7 @@ var KRONOS = {
 	logger : null
 };
 
+var ids
 var seriesData=[]
 var originalSearch={}
 var seriesOptions = [],
@@ -29,7 +30,7 @@ KRONOS.test = function(val) {
 
 
 KRONOS.search=function(){
-	var ids=$('#searchIds').val()
+	ids=$('#searchIds').val()
     if(ids==''){
         ids='AAPL'
     }
@@ -112,8 +113,13 @@ KRONOS.hideIndices=function(){
         KRONOS.showSettings();
         
         window.scrollTo(0,document.body.scrollHeight);
-
-    
+}
+KRONOS.getML=function(){
+    $.post("/getMLStats",{
+        stockTicker : ids       
+    }).done(function(response) {
+        console.log(response)
+    });
 }
 
 /**
@@ -180,7 +186,13 @@ KRONOS.createChart=function() {
         // shadow: true
     },
 
-        series: seriesData
+        series: seriesData,
+
+         credits: {
+        text: '\xAE Kronos',
+        href: 'http://www.reddit.com'
+    },
+  
     }); 
 }
 KRONOS.makeChart=function(){

@@ -86,22 +86,25 @@ p{
     top: 55%;
 }
 
-#customers {
+.dataTable {
     font-family: Roboto;
     border-collapse: collapse;
     width: 100%;
+    color: black;
 }
 
-#customers td, #customers th {
+.dataTable td, .dataTable th {
     border: 1px solid #ddd;
     padding: 20px;
 }
 
-#customers tr:nth-child(even){background-color: #ddd;}
+.dataTable tr:nth-child(even){background-color: #ddd;}
 
-#customers tr:hover {background-color: #ddd;}
+.dataTable tr:nth-child(odd){background-color: #6b4380;}
 
-#customers th {
+.dataTable tr:hover {background-color: #ddd;}
+
+.dataTable th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;

@@ -108,7 +108,7 @@
 			      <div class="panel-heading">Financial Statistics</div>
 			      <div class="panel-body">
 			      	
-						<table id="customers">
+						<table id="customers" class="dataTable">
 						  <tr>
 						    <th>Metric</th>
 						    <th>Value</th>
@@ -129,7 +129,7 @@
 			    <div class="panel panel-default">
 			      <div class="panel-heading">Predicitive Statistics</div>
 			      <div class="panel-body">
-			      	<table id="machineLearning">
+			      	<table class="dataTable" id="machineLearning">
 						  <tr>
 						    <th>Machine Learning Algorithm</th>
 						    <th>Prediction</th>
@@ -144,11 +144,15 @@
 			      <div class="panel-body">
 			      	<div style="position: relative">
 			      		<button type="button"
-							class="ExampleButton btn btn-info col-sm-4 col-xs-4 col-xs-offset-1 col-sm-offset-1"
+							class="ExampleButton btn btn-info col-sm-3 col-xs-4 col-xs-offset-1 col-sm-offset-1"
 							onclick="KRONOS.overlayIndices()">Show Major Indices</button>
 						<button type="button"
-							class="ExampleButton btn btn-info col-sm-4 col-xs-4 col-xs-offset-1 col-sm-offset-1"
+							class="ExampleButton btn btn-info col-sm-3 col-xs-4 col-xs-offset-1 col-sm-offset-1"
 							onclick="KRONOS.hideIndices()">Hide Major Indices</button>
+
+						<button type="button"
+							class="ExampleButton btn btn-info col-sm-3 col-xs-4 col-xs-offset-1 col-sm-offset-1"
+							onclick="KRONOS.getML()">Show Next Day Predictions</button>
 			      </div>
 			    </div>
 			    

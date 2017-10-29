@@ -1790,7 +1790,7 @@ pre code {
     width: 41.66666667%;
   }
   .col-sm-4 {
-    width: 33.33333333%;
+    width: 60%;
   }
   .col-sm-3 {
     width: 25%;
@@ -1904,7 +1904,7 @@ pre code {
     margin-left: 41.66666667%;
   }
   .col-sm-offset-4 {
-    margin-left: 33.33333333%;
+    margin-left: 0%;
   }
   .col-sm-offset-3 {
     margin-left: 25%;
@@ -4149,7 +4149,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: relative;
   min-height: 50px;
   margin-bottom: 20px;
-  border: 1px solid transparent;
 }
 @media (min-width: 768px) {
   .navbar {

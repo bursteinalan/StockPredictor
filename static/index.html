@@ -67,32 +67,33 @@
 		</div>
 	</nav>
 
-	<div class="" style="margin-top: 50px">
+	<div class="" style="margin-top: 0px">
 
 		<div class="name">
-			<div class="col-md-12">
-				<h1>Kronos</h1>
-				<p class="lead">Financial Predictor</p>
+			<div class="col-md-12" id="comp-title" style="">
+				<h1>Know the <span id="future">future</span>.</h1>
+				<p class="lead">Control the future</p>
 			</div>
 		</div>
 
-		<div class="col-md-12 col-xs-12" id="search">
+		<div class="col-md-12 col-xs-12" id="search" style="">
 			<div class="panel panel-default">
-				<div class="panel-body">
-					<h2 style="text-align: center; margin-top: 0px;">Prediction</h2>
+				<div class="panel-body-1">
 
-					<div style="position: relative">
+				<div class="col-sm-1" id="mic" >
+									<img class="mic" id="micIcon" onclick="KRONOS.startRecording()"
+										src="/static/resources/mic-icon.png">
+					</div>
+				<div style="position: relative">
 						<div class="col-sm-4 col-xs-6 col-xs-offset-3 col-sm-offset-4">
 						<input class="form-control " type="text" name="search" id="searchIds" placeholder="AAPL" required>
 					</div>
-					<div class="col-sm-1" id="mic" >
-									<img class="mic" id="micIcon" onclick="KRONOS.startRecording()"
-										src="/static/resources/mic-icon.png">
-								</div>
-						<button type="button"
-							style="margin-top: 20px;"
+
+					<button type="button"
 							class="ExampleButton btn btn-success col-sm-2 col-xs-6 col-xs-offset-3 col-sm-offset-5" 
-							onclick="KRONOS.search()">Search</button>
+							onclick="KRONOS.search()"><img src="/static/resources/arrow-left.png"></button>
+		
+
 						
 					</div>
 				</div>
@@ -100,7 +101,7 @@
 		</div>
 		<!-- style="margin-top: 5px" -->
 
-		<div class="col-md-12 col-xs-12" id="container" style="height: 400px; min-width: 310px; margin-bottom: 10px"></div>
+		<div class="col-md-12 col-xs-12 " id="container" style="height: 400px; min-width: 310px; margin-bottom: 10px; max-width: 70%"></div>
 
 		<div class="col-md-12 col-xs-12" id="stats" style="display: none;">
 			<div class="panel-group">

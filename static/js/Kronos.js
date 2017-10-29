@@ -63,13 +63,16 @@ KRONOS.search=function(){
         KRONOS.showSettings();
 
 
-
-        
-        window.scrollTo(0,document.body.scrollHeight);
+        $('#search').hide().addClass('search-clicked').fadeIn();
+        $('#comp-title').hide();
+        $('.name').css('padding', '0 15px');
+        $('#container').css('background-color', '#fff');
 		
 	}).fail(function() {
 		console.log("failed to return results");
 	});
+
+    $("html, body").animate({ scrollTop: 0 }, "slow");
 
 	// KRONOS.makeChart()
 }
@@ -297,12 +300,13 @@ KRONOS.showSettings=function(){
 KRONOS.showStats=function(){
     // $("#settings").css("display", "block");
     $("#stats").fadeIn("slow");
+    $("#stats").css("float", "right").css("width", "30%");
 }
 
 //Handle HTML for voice recording
 KRONOS.startRecording = function() {
     var mic=$("#micIcon");
-    mic.attr("src","/static/resources/mic-red.png");
+    mic.attr("src","/static/resources/mic-2.png");
     KRONOS.handleVoice();
 }
 

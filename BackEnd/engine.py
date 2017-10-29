@@ -24,7 +24,7 @@ def pull_data(file):
 def parse_data(data):
 	num = 1000
 
-	data = [-num:]
+	data = data[-num:]
 	start = data[0][0]
 	dates = []
 	prices = []

@@ -40,7 +40,7 @@ def train(dates, prices):
 	return svr_rbf
 
 def predict(trained, x):
-	return trained.predict(x).tolist()
+	return {"SVM" : trained.predict(x).tolist()[0]}
 
 
 

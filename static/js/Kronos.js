@@ -264,7 +264,13 @@ KRONOS.getML=function(){
         })
 
     ).then(function() {
-        
+        Heurisitic=0
+        for(label in data ){
+            Heurisitic=Heurisitic+data[label]
+        }
+        Heurisitic=Math.round(Heurisitic/3*100)/100
+        data['Heurisitic Analysis']=Heurisitic
+
         $("#machineLearning" + " tr:has(td)").remove();
         // console.dir(response)
         console.log(data)

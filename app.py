@@ -14,16 +14,38 @@ def main():
 @app.route('/getDataSet', methods=["POST"])
 def getDataSetWrapper():
     ticker = request.form['stockTicker']
-    return json.dumps(parser.getDataSet(ticker))
+    fname = r"cachedData/DataSet-" + ticker + ".txt"
+    if os.path.isfile(fname):
+        with open(fname, 'r') as json_file:  
+            return json_file.read()
+    with open(fname, 'w') as outfile: 
+        data = parser.getDataSet(ticker)
+        json.dump(data, outfile)
+        return json.dumps(data)
 
 @app.route("/marketData", methods=["POST"])
 def getMarketData():
-    return json.dumps([parser.getDataSet("^GSPC"), parser.getDataSet("^IXIC") ])
+    fname = r"cachedData/marketData.txt"
+    if os.path.isfile(fname):
+        with open(fname, 'r') as json_file:  
+            return json_file.read()
+    with open(fname, 'w') as outfile: 
+        data = [parser.getDataSet("^GSPC"), parser.getDataSet("^IXIC"), parser.getDataSet("^DJI")]
+        json.dump(data, outfile)
+        return json.dumps(data)
 
 @app.route('/getStat', methods=["POST"])
 def getStatWrapper():
     ticker = request.form['stockTicker']
-    return json.dumps(parser.getStat(ticker))
+    fname = r"cachedData/Stat-" + ticker + ".txt"
+    if os.path.isfile(fname):
+        with open(fname, 'r') as json_file:  
+            return json_file.read()
+    with open(fname, 'w') as outfile: 
+        data = parser.getStat(ticker)
+        json.dump(data, outfile)
+        return json.dumps(data)
+    return json.dumps()
 
 if __name__ == "__main__":
     app.run()

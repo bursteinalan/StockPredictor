@@ -21,6 +21,7 @@ KRONOS.documentReady = function() {
 
 
 	console.log("Kronos is document ready!");
+    $("html, body").animate({ scrollTop: 0 }, "slow");
 };
 
 KRONOS.runLoader=function(){
@@ -416,7 +417,7 @@ KRONOS.showSettings=function(){
 KRONOS.showStats=function(){
     // $("#settings").css("display", "block");
     $("#stats").fadeIn("slow");
-    $("#stats").css("float", "right").css("width", "30%");
+    $("#stats").css("float", "right").css("max-width", "45%");
 }
 
 KRONOS.showLoader = function() {

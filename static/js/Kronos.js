@@ -45,7 +45,7 @@ KRONOS.search=function(){
             name: ids,
             data: response
         };
-        seriesData.append(seriesOptions)
+        seriesData.push(seriesOptions)
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart();
         KRONOS.showSettings();
@@ -65,17 +65,18 @@ KRONOS.overlayIndices=function(){
         // console.dir(response)
         SP=response[0]
         NASD=response[1]
-
+        console.log(response)
         seriesOptions = {
             name: 'S&P',
             data: SP
         }
-        seriesData.append(seriesOptions)
+        seriesData.push(seriesOptions)
+
         seriesOptions = {
             name: 'NASDAQ',
             data: NASD
         }
-        seriesData.append(seriesOptions)
+        seriesData.push(seriesOptions)
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart();
         KRONOS.showSettings();
@@ -100,7 +101,11 @@ KRONOS.createChart=function() {
         },
 
         yAxis: {
-            
+            labels: {
+                formatter: function () {
+                    return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                }
+            },
             plotLines: [{
                 value: 0,
                 width: 2,
@@ -108,18 +113,33 @@ KRONOS.createChart=function() {
             }]
         },
 
+
         plotOptions: {
             series: {
                 showInNavigator: true,
-                turboThreshold: 0
+                turboThreshold: 0,
+                compare: 'percent'
             }
         },
 
         tooltip: {
-            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}<br/>',
+            // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}<br/>',
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
             valueDecimals: 2,
             split: true
         },
+
+        legend: {
+        enabled: true
+        // align: 'right',
+        // backgroundColor: '#FCFFC5',
+        // borderColor: 'black',
+        // borderWidth: 2,
+        // layout: 'vertical',
+        // verticalAlign: 'top',
+        // y: 100,
+        // shadow: true
+    },
 
         series: seriesData
     }); 

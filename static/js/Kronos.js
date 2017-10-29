@@ -146,7 +146,7 @@ var active = false;
 var active2 = false;
 var active3 = false;
 KRONOS.search=function(){
-    active = false;
+    active =false;
     active2=false;
     active3=false;
     KRONOS.showLoader();
@@ -261,13 +261,17 @@ KRONOS.hideIndices=function(){
 
 
 KRONOS.getML=function(){
+
+    if(active2){
+        $("#settings").hide();
+        active2=false;
+    }else{
+        KRONOS.showLoader() 
+       active2 = true;
+
     data=[]
     data['Current Stock Price']= currentValue
-
-    KRONOS.showLoader()
-    KRONOS.showSettings();
-    data=[];
-    data['Current Stock Price']= currentValue;
+    $("#settings").fadeIn();
     $.when(
         $.post("/getMLStats",{
             stockTicker : ids       
@@ -278,6 +282,7 @@ KRONOS.getML=function(){
             jQuery.extend(data, response);
             // data.push(response)
         })
+        window.scrollTo(0,document.body.scrollHeight);
 
     ).then(function() {
         
@@ -299,6 +304,7 @@ KRONOS.getML=function(){
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.hideLoader();
     });
+    }
 }
 
 /**
@@ -429,23 +435,14 @@ KRONOS.getStats=function(ids){
 }
 
 
-KRONOS.showSettings=function(){
-	// $("#settings").css("display", "block");
-    if(active2){
-        $("#settings").hide();
-        active2=false;
-    }else{
-       $("#settings").fadeIn(); 
-       active2 = true;
-    }
-}
 KRONOS.showStats=function(){
     // $("#settings").css("display", "block");
     if(active3){
         $("#stats").hide();
-        active2 = false;
+        active3 = false;
     }else{
        $("#stats").fadeIn(); 
+       window.scrollTo(0,document.body.scrollHeight);
        active3 = true;
     }
     $("#stats").css("float", "right").css("max-width", "45%");

@@ -24,8 +24,6 @@ def getDataSet(stockTicker):
             startYear += 5
 
     parsedData = list()
-    # parsedDataX = list()
-    # parsedDataY = list()
     dataFrame = data.getHistorical()
     for _, row in dataFrame.iterrows():
         try:

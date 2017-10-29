@@ -146,11 +146,12 @@ KRONOS.getML=function(){
         $("#machineLearning" + " tr:has(td)").remove();
         // console.dir(response)
         console.log(data)
+        table=$("#machineLearning")
+        $("#machineLearning" + " tr:has(td)").remove();
+        resultsTableBody = table.find("tbody");
+        table.find("thead").remove();
         for(label in data ){
-            table=$("#machineLearning")
-            $("#machineLearning" + " tr:has(td)").remove();
-            resultsTableBody = table.find("tbody");
-            table.find("thead").remove();
+            
             resultsTableBody.append($('<tr/>').append(
                 $('<td/>').append($("<span/>").text(label)))
         

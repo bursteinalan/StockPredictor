@@ -85,10 +85,15 @@
 						<div class="col-sm-4 col-xs-6 col-xs-offset-3 col-sm-offset-4">
 						<input class="form-control " type="text" name="search" id="searchIds" placeholder="AAPL" required>
 					</div>
+					<div class="col-sm-1" id="mic" >
+									<img class="mic" id="micIcon" onclick="KRONOS.startRecording()"
+										src="/static/resources/mic-icon.png">
+								</div>
 						<button type="button"
 							style="margin-top: 20px;"
 							class="ExampleButton btn btn-success col-sm-2 col-xs-6 col-xs-offset-3 col-sm-offset-5" 
 							onclick="KRONOS.search()">Search</button>
+						
 					</div>
 				</div>
 			</div>
@@ -122,22 +127,14 @@
 		<div class="col-md-12 col-xs-12" id="settings" style="display: none;">
 			<div class="panel-group">
 			    <div class="panel panel-default">
-			      <div class="panel-heading">Model Settings</div>
+			      <div class="panel-heading">Predicitive Statistics</div>
 			      <div class="panel-body">
-			      	<div style="position: relative">
-						<button type="button"
-							class="ExampleButton btn btn-info col-sm-2 col-xs-4 col-xs-offset-0 col-sm-offset-0"
-							onclick="KRONOS.makeChart()">Model1</button>
-						<button type="button"
-							class="ExampleButton btn btn-info col-sm-2 col-xs-4 col-xs-offset-1 col-sm-offset-1"
-							onclick="KRONOS.makeChart()">Model2</button>
-						<button type="button"
-							class="ExampleButton btn btn-info col-sm-2 col-xs-4 col-xs-offset-1 col-sm-offset-1"
-							onclick="KRONOS.makeChart()">Model3</button>
-						<button type="button"
-							class="ExampleButton btn btn-info col-sm-2 col-xs-4 col-xs-offset-1 col-sm-offset-1"
-							onclick="KRONOS.makeChart()">Model4</button>
-					</div>
+			      	<table id="customers">
+						  <tr>
+						    <th>Machine Learning Algorithm</th>
+						    <th>Prediction</th>
+						  </tr>
+						</table>
 
 			      </div>
 			    </div>
@@ -150,7 +147,7 @@
 							onclick="KRONOS.overlayIndices()">Show Major Indices</button>
 						<button type="button"
 							class="ExampleButton btn btn-info col-sm-4 col-xs-4 col-xs-offset-1 col-sm-offset-1"
-							onclick="KRONOS.showAll()">Show Each</button>
+							onclick="KRONOS.hideIndices()">Hide Major Indices</button>
 			      </div>
 			    </div>
 			    

@@ -181,17 +181,19 @@ KRONOS.search=function(){
         $('#search').hide().addClass('search-clicked').fadeIn();
         $('#comp-title').hide();
         $('.name').css('padding', '0 15px');
-        $('#container').css('background-color', '#fff');
+        $('#container').css('background-color', '#fff').fadeIn();
+        $('#btn-panel').show();
 		
 	}).fail(function() {
 		console.log("failed to return results");
 	});
 
-    $("html, body").animate({ scrollTop: 0 }, "slow");
+    $("html, body").animate({ scrollTop: 0}, "slow");
 
 	// KRONOS.makeChart()
 }
 KRONOS.overlayIndices=function(){
+    KRONOS.showLoader();
     $.post("/marketData").done(function(response) {
         // console.dir("Server returned: " + response);
         response=JSON.parse(response)
@@ -226,7 +228,7 @@ KRONOS.overlayIndices=function(){
         console.log(seriesData)
         // console.log("object is: " + JSON.stringify(seriesOptions));
         KRONOS.createChart();
-        KRONOS.showSettings();
+        KRONOS.hideLoader();
         
         window.scrollTo(0,document.body.scrollHeight);
 
@@ -247,7 +249,9 @@ KRONOS.hideIndices=function(){
 KRONOS.getML=function(){
     data=[]
     data['Current Stock Price']= currentValue
+
     KRONOS.showLoader()
+    KRONOS.showSettings();
     $.when(
         $.post("/getMLStats",{
             stockTicker : ids       

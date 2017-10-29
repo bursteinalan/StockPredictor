@@ -86,8 +86,8 @@ window.onload = function () {
 			</div>
 		</div>
 
-		<div id="loading" class="loader" style="display: none;z-index: 10000;  top: 30%;
-    left: 40%;"></div>
+		<div id="loading" class="loader" style="display: none;z-index: 10000;  top: 47%;
+    left: 47%;"></div>
 
 		<div class="col-md-12 col-xs-12" id="search" style="">
 			<div class="panel panel-default">
@@ -115,10 +115,25 @@ window.onload = function () {
 		</div>
 		<!-- style="margin-top: 5px" -->
 
-		
 
-		<div class="col-md-12 col-xs-12 " id="container" style="height: 400px; min-width: 310px; margin-bottom: 10px; max-width: 70%"></div>
+		<div class="col-md-12 col-xs-12 " id="container" style="display:none;height: 400px; min-width: 310px; margin-bottom: 10px; width: 100%"></div>
 
+		<div class="panel panel-default"  id="btn-panel" style="display: none">
+			      <div class="panel-body">
+			      	<div style="position: relative">
+			      		<button type="button"
+							class="ExampleButton btn btn-info col-sm-3 col-xs-4 col-xs-offset-1 col-sm-offset-1"
+							onclick="KRONOS.overlayIndices()">Show Major Indices</button>
+						<button type="button"
+							class="ExampleButton btn btn-info col-sm-3 col-xs-4 col-xs-offset-1 col-sm-offset-1"
+							onclick="KRONOS.hideIndices()">Hide Major Indices</button>
+
+						<button type="button"
+							class="ExampleButton btn btn-info col-sm-3 col-xs-4 col-xs-offset-1 col-sm-offset-1"
+							onclick="KRONOS.getML()">Show Next Day Predictions</button>
+			      </div>
+			  </div>
+		</div>
 
 		<div class="col-md-12 col-xs-12" id="stats" style="display: none;">
 			<div class="panel-group">
@@ -155,22 +170,6 @@ window.onload = function () {
 						</table>
 
 
-			      </div>
-			    </div>
-			    <div class="panel panel-default">
-			      <div class="panel-heading">Aggregation Settings</div>
-			      <div class="panel-body">
-			      	<div style="position: relative">
-			      		<button type="button"
-							class="ExampleButton btn btn-info col-sm-3 col-xs-4 col-xs-offset-1 col-sm-offset-1"
-							onclick="KRONOS.overlayIndices()">Show Major Indices</button>
-						<button type="button"
-							class="ExampleButton btn btn-info col-sm-3 col-xs-4 col-xs-offset-1 col-sm-offset-1"
-							onclick="KRONOS.hideIndices()">Hide Major Indices</button>
-
-						<button type="button"
-							class="ExampleButton btn btn-info col-sm-3 col-xs-4 col-xs-offset-1 col-sm-offset-1"
-							onclick="KRONOS.getML()">Show Next Day Predictions</button>
 			      </div>
 			    </div>
 			    
